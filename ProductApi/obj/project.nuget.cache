@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GzhXquKCsPtm+Yk9sJBC9VrAsq4J97fmdePyv78sCeC2VJGxZm57WDB4UxSS+VExVSKKqwaeLd05ZdF+1c+zVA==",
+  "dgSpecHash": "w7wpeq/+lrySpCGja4whjYx1JvUnbiuy7VSj1eZSAXzCEGQC9NQ6N1nB7vqN74yiIKScC3aVZyKdHGUIdFN+wA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
+  "projectFilePath": "C:\\Users\\mervan.kasir\\source\\repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mervan.kasir\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\mervan.kasir\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

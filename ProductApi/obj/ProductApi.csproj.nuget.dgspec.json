@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\ProductApi.csproj": {}
+    "C:\\Users\\mervan.kasir\\source\\repos\\ECommerceProject\\ProductApi\\ProductApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\ProductApi.csproj": {
+    "C:\\Users\\mervan.kasir\\source\\repos\\ECommerceProject\\ProductApi\\ProductApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
+        "projectUniqueName": "C:\\Users\\mervan.kasir\\source\\repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
         "projectName": "ProductApi",
-        "projectPath": "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
+        "projectPath": "C:\\Users\\mervan.kasir\\source\\repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
         "packagesPath": "C:\\Users\\mervan.kasir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\obj\\",
+        "outputPath": "C:\\Users\\mervan.kasir\\source\\repos\\ECommerceProject\\ProductApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 22.1\\Components\\Offline Packages",

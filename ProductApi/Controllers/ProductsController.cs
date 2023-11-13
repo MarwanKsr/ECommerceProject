@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProductApi.Dto;
 using ProductApi.Models;
-using ProductApi.Repository.Products;
+using ProductApi.Services.Products;
 
 namespace ProductApi.Controllers
 {
@@ -11,13 +11,13 @@ namespace ProductApi.Controllers
     public class ProductsController : ControllerBase
     {
         protected ResponseDto _response;
-        private readonly IProductQueryRepository _productQueryRepository;
-        private readonly IProductCommandRepository _productCommandRepository;
+        private readonly IProductQueryService _productQueryRepository;
+        private readonly IProductCommandService _productCommandRepository;
         private readonly IMapper _mapper;
 
         public ProductsController(
-            IProductQueryRepository productQueryRepository,
-            IProductCommandRepository productCommandRepository,
+            IProductQueryService productQueryRepository,
+            IProductCommandService productCommandRepository,
             IMapper mapper)
         {
             _productQueryRepository = productQueryRepository;

@@ -1,18 +1,18 @@
-﻿using ProductApi.DbContexts;
-using ProductApi.Dto;
+﻿using ProductApi.Dto;
 using ProductApi.Models;
-using ProductApi.Repository.Images;
+using ProductApi.Repository;
+using ProductApi.Services.Images;
 
-namespace ProductApi.Repository.Products
+namespace ProductApi.Services.Products
 {
-    public class ProductCommandRepository : IProductCommandRepository
+    public class ProductCommandService : IProductCommandService
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IRepository<Product> _productRepository;
         private readonly IMediaService _imageService;
 
-        public ProductCommandRepository(ApplicationDbContext db, IMediaService imageService)
+        public ProductCommandService(IRepository<Product> productRepository, IMediaService imageService)
         {
-            _db = db;
+            _productRepository = productRepository;
             _imageService = imageService;
         }
 
@@ -20,8 +20,7 @@ namespace ProductApi.Repository.Products
         {
             var imageEntity = await _imageService.CreateImageByFormFile(image);
             var product = new Product(productDto.Name, productDto.Price, productDto.Description, imageEntity, productDto.Stock, productDto.CreatedBy);
-            await _db.Products.AddAsync(product);
-            await _db.SaveChangesAsync();
+            await _productRepository.AddAndSaveAsync(product);
             return ProductDto.FromEntity(product);
         }
 
@@ -29,13 +28,12 @@ namespace ProductApi.Repository.Products
         {
             try
             {
-                var product = await _db.Products.FindAsync(productId);
+                var product = await _productRepository.FindAsync(productId);
                 if (product == null)
                 {
                     return false;
                 }
-                _db.Products.Remove(product); //delete from Product where Id=productId
-                await _db.SaveChangesAsync();
+                await _productRepository.RemoveAndSaveAsync(product);
                 return true;
             }
             catch (Exception)
@@ -46,7 +44,7 @@ namespace ProductApi.Repository.Products
 
         public async Task<ProductDto> UpdateProduct(ProductDto productDto, IFormFile image)
         {
-            var product = await _db.Products.FindAsync(productDto.Id);
+            var product = await _productRepository.FindAsync(productDto.Id);
             if (product is null)
                 throw new Exception("Product Not Found");
 
@@ -65,8 +63,7 @@ namespace ProductApi.Repository.Products
             }
             product.AuditModify(productDto.ModifiedBy);
 
-            _db.Products.Update(product);
-            await _db.SaveChangesAsync();
+            await _productRepository.ModifyAndSaveAsync(product);
             return ProductDto.FromEntity(product);
         }
     }

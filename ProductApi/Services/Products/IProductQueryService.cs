@@ -1,8 +1,8 @@
 ﻿using ProductApi.Dto;
 
-namespace ProductApi.Repository.Products
+namespace ProductApi.Services.Products
 {
-    public interface IProductQueryRepository
+    public interface IProductQueryService
     {
         Task<IEnumerable<ProductDto>> GetProducts();
         Task<ProductDto> GetProductById(int productId);

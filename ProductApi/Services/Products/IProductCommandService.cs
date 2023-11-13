@@ -1,8 +1,8 @@
 ﻿using ProductApi.Dto;
 
-namespace ProductApi.Repository.Products
+namespace ProductApi.Services.Products
 {
-    public interface IProductCommandRepository
+    public interface IProductCommandService
     {
         Task<ProductDto> CreateProduct(ProductDto productDto, IFormFile image);
         Task<ProductDto> UpdateProduct(ProductDto productDto, IFormFile image);

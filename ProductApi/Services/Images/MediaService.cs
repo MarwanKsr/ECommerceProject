@@ -1,28 +1,28 @@
 ﻿using ProductApi.Configuration;
-using ProductApi.DbContexts;
 using ProductApi.Extensions;
 using ProductApi.Models;
+using ProductApi.Repository;
 using ProductApi.StorageFactory;
 using TwentyTwenty.Storage;
 
-namespace ProductApi.Repository.Images
+namespace ProductApi.Services.Images
 {
     public class MediaService : IMediaService
     {
         private readonly string _galleryUrl;
         private readonly IStorageServiceFactory _storageServiceFactory;
         private readonly IStorageProvider _storageProvider;
-        private readonly ApplicationDbContext _db;
+        private readonly IRepository<Image> _imageRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         public MediaService(
             IStorageServiceFactory storageServiceFactory,
-            ApplicationDbContext db,
+            IRepository<Image> imageRepository,
             IWebHostEnvironment webHostEnvironment)
         {
             _storageServiceFactory = storageServiceFactory;
             _storageProvider = _storageServiceFactory.GetProvider();
-            _db = db;
+            _imageRepository = imageRepository;
             _webHostEnvironment = webHostEnvironment;
             _galleryUrl = _webHostEnvironment.ContentRootPath + HostAppSetting.Instance.MediaUrl;
         }
@@ -94,8 +94,7 @@ namespace ProductApi.Repository.Images
         {
             try
             {
-                await _db.Images.AddAsync(image);
-                await _db.SaveChangesAsync();
+                await _imageRepository.AddAndSaveAsync(image);
                 return true;
             }
             catch (Exception)
@@ -115,14 +114,13 @@ namespace ProductApi.Repository.Images
         {
             try
             {
-                var image = await _db.Images.FindAsync(imageId);
+                var image = await _imageRepository.FindAsync(imageId);
                 if (image is null)
                     return true;
 
                 File.Delete(image.GetAbsoluteUrl().ConvertToAppropriateDirectorySeperator());
 
-                _db.Images.Remove(image);
-                await _db.SaveChangesAsync();
+                await _imageRepository.RemoveAndSaveAsync(image);
 
                 return true;
             }

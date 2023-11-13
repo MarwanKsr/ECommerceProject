@@ -1,10 +1,9 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ProductApi.Configuration;
 using ProductApi.DbContexts;
-using ProductApi.Mapper;
-using ProductApi.Repository.Images;
-using ProductApi.Repository.Products;
+using ProductApi.Repository;
+using ProductApi.Services.Images;
+using ProductApi.Services.Products;
 using ProductApi.StorageFactory;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,8 +17,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IProductQueryRepository, ProductQueryRepository>();
-builder.Services.AddScoped<IProductCommandRepository, ProductCommandRepository>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IProductQueryService, ProductQueryService>();
+builder.Services.AddScoped<IProductCommandService, ProductCommandService>();
 builder.Services.AddScoped<IStorageServiceFactory, StorageServiceFactory>();
 builder.Services.AddScoped<IMediaService,  MediaService>();
 
@@ -28,8 +28,6 @@ builder.Configuration.GetSection(HostAppSetting.SECTION_NAME).Bind(hostAppSettin
 builder.Services.AddSingleton(hostAppSetting);
 HostAppSetting.SetUpInstance(hostAppSetting);
 
-IMapper mapper = ProductMapperProfiles.RegisterMaps().CreateMapper();
-builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();

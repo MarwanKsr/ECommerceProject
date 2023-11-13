@@ -1,6 +1,6 @@
 ﻿using ProductApi.Models;
 
-namespace ProductApi.Repository.Images
+namespace ProductApi.Services.Images
 {
     public interface IMediaService
     {
