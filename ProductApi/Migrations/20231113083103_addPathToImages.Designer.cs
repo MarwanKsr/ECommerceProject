@@ -12,8 +12,8 @@ using ProductApi.DbContexts;
 namespace ProductApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231112203700_projectInit")]
-    partial class projectInit
+    [Migration("20231113083103_addPathToImages")]
+    partial class addPathToImages
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,6 +62,10 @@ namespace ProductApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Images");
@@ -86,7 +90,7 @@ namespace ProductApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("ImageId")
+                    b.Property<long?>("ImageId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("ModifiedAt")
@@ -118,8 +122,7 @@ namespace ProductApi.Migrations
                     b.HasOne("ProductApi.Models.Image", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Image");
                 });

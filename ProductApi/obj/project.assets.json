@@ -1188,6 +1188,28 @@
             "rid": "win"
           }
         }
+      },
+      "TwentyTwenty.Storage/2.20.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/TwentyTwenty.Storage.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/TwentyTwenty.Storage.dll": {}
+        }
+      },
+      "TwentyTwenty.Storage.Local/2.20.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Json": "5.0.2",
+          "TwentyTwenty.Storage": "2.20.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/TwentyTwenty.Storage.Local.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/TwentyTwenty.Storage.Local.dll": {}
+        }
       }
     }
   },
@@ -3381,6 +3403,30 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "TwentyTwenty.Storage/2.20.0": {
+      "sha512": "uZTGJCE8Ql3FRkFeV3T1375u6LG4SmAI8SmvlyVLEomb/mf16QDc/ZW1SyJ4NdDFDilYk8M3g5sRr3TB8QpYsA==",
+      "type": "package",
+      "path": "twentytwenty.storage/2.20.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/TwentyTwenty.Storage.dll",
+        "twentytwenty.storage.2.20.0.nupkg.sha512",
+        "twentytwenty.storage.nuspec"
+      ]
+    },
+    "TwentyTwenty.Storage.Local/2.20.0": {
+      "sha512": "iy5smkw6LgqDXgkE3tlY/KdKz8GoNWOU5RThvaG3CYgxw2EtFHsj27GZMNKfqGVfR7c/kopLkdI5obTm6EHkNA==",
+      "type": "package",
+      "path": "twentytwenty.storage.local/2.20.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/TwentyTwenty.Storage.Local.dll",
+        "twentytwenty.storage.local.2.20.0.nupkg.sha512",
+        "twentytwenty.storage.local.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -3390,23 +3436,33 @@
       "Microsoft.AspNetCore.OpenApi >= 7.0.4",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.13",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.13",
-      "Swashbuckle.AspNetCore >= 6.4.0"
+      "Swashbuckle.AspNetCore >= 6.4.0",
+      "TwentyTwenty.Storage >= 2.20.0",
+      "TwentyTwenty.Storage.Local >= 2.20.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Casper TR\\.nuget\\packages\\": {}
+    "C:\\Users\\mervan.kasir\\.nuget\\packages\\": {},
+    "C:\\Program Files\\DevExpress 22.1\\Components\\Offline Packages": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
+      "projectUniqueName": "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
       "projectName": "ProductApi",
-      "projectPath": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
-      "packagesPath": "C:\\Users\\Casper TR\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\ProductApi\\obj\\",
+      "projectPath": "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
+      "packagesPath": "C:\\Users\\mervan.kasir\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\DevExpress 22.1\\Components\\Offline Packages",
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Casper TR\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mervan.kasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 22.1.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3414,7 +3470,11 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "C:\\Program Files\\DevExpress 22.1\\Components\\System\\Components\\Packages": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "C:\\Users\\siratigui.coulibaly\\.nuget\\packages": {},
+        "https://api.nuget.org/v3/index.json": {},
+        "https://xpandnugetserver.azurewebsites.net/nuget": {}
       },
       "frameworks": {
         "net7.0": {
@@ -3457,6 +3517,14 @@
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.4.0, )"
+          },
+          "TwentyTwenty.Storage": {
+            "target": "Package",
+            "version": "[2.20.0, )"
+          },
+          "TwentyTwenty.Storage.Local": {
+            "target": "Package",
+            "version": "[2.20.0, )"
           }
         },
         "imports": [
@@ -3478,7 +3546,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

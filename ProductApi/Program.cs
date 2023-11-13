@@ -1,10 +1,11 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using ProductApi.Configuration;
 using ProductApi.DbContexts;
 using ProductApi.Mapper;
-using ProductApi.Repository;
+using ProductApi.Repository.Images;
+using ProductApi.Repository.Products;
+using ProductApi.StorageFactory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductQueryRepository, ProductQueryRepository>();
+builder.Services.AddScoped<IProductCommandRepository, ProductCommandRepository>();
+builder.Services.AddScoped<IStorageServiceFactory, StorageServiceFactory>();
+builder.Services.AddScoped<IMediaService,  MediaService>();
 
 var hostAppSetting = new HostAppSetting();
 builder.Configuration.GetSection(HostAppSetting.SECTION_NAME).Bind(hostAppSetting);

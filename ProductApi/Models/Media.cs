@@ -12,5 +12,7 @@ namespace ProductApi.Models
         public string ContentType { get; set; }
 
         public long FileSize { get; set; }
+
+        public string Path { get; set; }
     }
 }

@@ -16,6 +16,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="TwentyTwenty.Storage" Version="2.20.0" />
+    <PackageReference Include="TwentyTwenty.Storage.Local" Version="2.20.0" />
   </ItemGroup>
 
   <ItemGroup>

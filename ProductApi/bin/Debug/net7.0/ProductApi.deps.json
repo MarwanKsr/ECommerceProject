@@ -13,7 +13,9 @@
           "Microsoft.AspNetCore.OpenApi": "7.0.4",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.13",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.13",
-          "Swashbuckle.AspNetCore": "6.4.0"
+          "Swashbuckle.AspNetCore": "6.4.0",
+          "TwentyTwenty.Storage": "2.20.0",
+          "TwentyTwenty.Storage.Local": "2.20.0"
         },
         "runtime": {
           "ProductApi.dll": {}
@@ -636,6 +638,26 @@
             "fileVersion": "6.0.21.52210"
           }
         }
+      },
+      "TwentyTwenty.Storage/2.20.0": {
+        "runtime": {
+          "lib/netstandard2.0/TwentyTwenty.Storage.dll": {
+            "assemblyVersion": "2.20.0.0",
+            "fileVersion": "2.20.0.0"
+          }
+        }
+      },
+      "TwentyTwenty.Storage.Local/2.20.0": {
+        "dependencies": {
+          "System.Text.Json": "7.0.0",
+          "TwentyTwenty.Storage": "2.20.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/TwentyTwenty.Storage.Local.dll": {
+            "assemblyVersion": "2.20.0.0",
+            "fileVersion": "2.20.0.0"
+          }
+        }
       }
     }
   },
@@ -1127,6 +1149,20 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
+    },
+    "TwentyTwenty.Storage/2.20.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uZTGJCE8Ql3FRkFeV3T1375u6LG4SmAI8SmvlyVLEomb/mf16QDc/ZW1SyJ4NdDFDilYk8M3g5sRr3TB8QpYsA==",
+      "path": "twentytwenty.storage/2.20.0",
+      "hashPath": "twentytwenty.storage.2.20.0.nupkg.sha512"
+    },
+    "TwentyTwenty.Storage.Local/2.20.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iy5smkw6LgqDXgkE3tlY/KdKz8GoNWOU5RThvaG3CYgxw2EtFHsj27GZMNKfqGVfR7c/kopLkdI5obTm6EHkNA==",
+      "path": "twentytwenty.storage.local/2.20.0",
+      "hashPath": "twentytwenty.storage.local.2.20.0.nupkg.sha512"
     }
   }
 }

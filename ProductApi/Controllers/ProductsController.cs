@@ -1,25 +1,27 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductApi.Dto;
 using ProductApi.Models;
-using ProductApi.Repository;
-using System.Data;
+using ProductApi.Repository.Products;
 
 namespace ProductApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductAPIController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         protected ResponseDto _response;
-        private IProductRepository _productRepository;
+        private readonly IProductQueryRepository _productQueryRepository;
+        private readonly IProductCommandRepository _productCommandRepository;
         private readonly IMapper _mapper;
 
-        public ProductAPIController(IProductRepository productRepository, IMapper mapper)
+        public ProductsController(
+            IProductQueryRepository productQueryRepository,
+            IProductCommandRepository productCommandRepository,
+            IMapper mapper)
         {
-            _productRepository = productRepository;
+            _productQueryRepository = productQueryRepository;
+            _productCommandRepository = productCommandRepository;
             _mapper = mapper;
             this._response = new ResponseDto();
         }
@@ -28,7 +30,7 @@ namespace ProductApi.Controllers
         {
             try
             {
-                IEnumerable<ProductDto> productDtos = await _productRepository.GetProducts();
+                IEnumerable<ProductDto> productDtos = await _productQueryRepository.GetProducts();
                 _response.Result = productDtos;
             }
             catch (Exception ex)
@@ -46,7 +48,7 @@ namespace ProductApi.Controllers
         {
             try
             {
-                ProductDto productDto = await _productRepository.GetProductById(id);
+                ProductDto productDto = await _productQueryRepository.GetProductById(id);
                 _response.Result = productDto;
             }
             catch (Exception ex)
@@ -61,14 +63,14 @@ namespace ProductApi.Controllers
 
         [HttpPost]
         //[Authorize]
-        public async Task<object> Create([FromBody] ProductCreateModel productCreateModel)
+        [Route("Create")]
+        public async Task<object> Create(ProductCreateModel productCreateModel/*, IFormFile image*/)
         {
             try
             {
                 var productDto = _mapper.Map<ProductDto>(productCreateModel);
                 productDto.CreatedBy = "User";
-                productDto.ModifiedBy = "User";
-                ProductDto model = await _productRepository.CreateProduct(productDto);
+                ProductDto model = await _productCommandRepository.CreateProduct(productDto, default);
                 _response.Result = model;
             }
             catch (Exception ex)
@@ -83,12 +85,14 @@ namespace ProductApi.Controllers
 
         [HttpPut]
         //[Authorize]
-        public async Task<object> Update([FromBody] ProductUpdateModel productUpdateModel)
+        [Route("Update")]
+        public async Task<object> Update([FromBody] ProductUpdateModel productUpdateModel/*, IFormFile image*/)
         {
             try
             { 
                 var productDto = _mapper.Map<ProductDto>(productUpdateModel);
-                ProductDto model = await _productRepository.UpdateProduct(productDto);
+                productDto.ModifiedBy = "User";
+                ProductDto model = await _productCommandRepository.UpdateProduct(productDto, default);
                 _response.Result = model;
             }
             catch (Exception ex)
@@ -102,12 +106,12 @@ namespace ProductApi.Controllers
 
         [HttpDelete]
         //[Authorize(Roles = "Admin")]
-        [Route("{id}")]
+        [Route("Delete/{id}")]
         public async Task<object> Delete(int id)
         {
             try
             {
-                bool isSuccess = await _productRepository.DeleteProduct(id);
+                bool isSuccess = await _productCommandRepository.DeleteProduct(id);
                 _response.Result = isSuccess;
             }
             catch (Exception ex)

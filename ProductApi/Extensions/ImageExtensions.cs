@@ -1,5 +1,7 @@
 ﻿using ProductApi.Configuration;
 using ProductApi.Models;
+using System.Runtime.InteropServices;
+using TwentyTwenty.Storage;
 
 namespace ProductApi.Extensions
 {
@@ -7,12 +9,7 @@ namespace ProductApi.Extensions
     {
         public static string GetAbsoluteUrl(this Image image)
         {
-            var hostAppSettings = HostAppSetting.Instance;
-
-            var mediaUrl = hostAppSettings.MediaUrl;
-            var baseUrl = hostAppSettings.SiteUrl;
-
-            return image is null ? "" : $"{baseUrl}/{mediaUrl}/{image.ImageName}".ToUrl();
+            return image is null ? "" : $"{image.Path}/{image.ImageName}".ToUrl();
         }
 
         public static string ToUrl(this string url)
@@ -20,5 +17,40 @@ namespace ProductApi.Extensions
             return url.Replace(@"\", "/");
         }
 
+        public static string ConvertToAppropriateDirectorySeperator(this string path)
+        {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                path = path.Replace(@"\", "/");
+            else
+                path = path.Replace("/", @"\");
+
+            return path.Replace(@"\\", @"\").Replace(@"//", @"/");
+        }
+
+        public static async Task<bool> SaveAttachedFile(this Image image, IStorageProvider storageProvider, Stream stream, string imageUrl)
+        {
+            try
+            {
+                await storageProvider.SaveBlobStreamAsync(imageUrl.ConvertToAppropriateDirectorySeperator(), $"{image.ImageName}", stream);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static async Task<bool> DeleteAttachedFile(this Image image, IStorageProvider storageProvider, string imageUrl)
+        {
+            try
+            {
+                await storageProvider.DeleteBlobAsync(imageUrl.ConvertToAppropriateDirectorySeperator(), $"{image.ImageName}");
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

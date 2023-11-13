@@ -42,8 +42,8 @@ namespace ProductApi.Models
             Description = descriptoin;
         }
 
-        public Image Image { get; private set; }
-        public void SetImage(Image image)
+        public Image? Image { get; private set; }
+        public void SetImage(Image? image)
         {
             if (image == null) 
                 throw new ArgumentNullException("image cann't be empty");

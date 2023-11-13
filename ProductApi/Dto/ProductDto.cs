@@ -10,7 +10,6 @@ namespace ProductApi.Dto
         public string Description { get; private set; }
         public string ImageUrl { get; private set; }
         public int Stock { get; private set; }
-        public Image Image { get; private set; }
         public string CreatedBy {get; set;}
         public DateTime CreatedAt { get; private set;}
         public string ModifiedBy { get; set;}
@@ -23,7 +22,6 @@ namespace ProductApi.Dto
                 Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
-                Image = product.Image,
                 ImageUrl = ImageDto.FromEntity(product.Image)?.AbsoluteUrl,
                 Price = product.Price,
                 Stock = product.Stock,
