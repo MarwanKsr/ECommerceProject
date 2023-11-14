@@ -156,3 +156,5 @@ C:\Users\mervan.kasir\Source\Repos\ECommerceProject\ProductApi\obj\Debug\net7.0\
 C:\Users\mervan.kasir\Source\Repos\ECommerceProject\ProductApi\obj\Debug\net7.0\ref\ProductApi.dll
 C:\Users\mervan.kasir\Source\Repos\ECommerceProject\ProductApi\bin\Debug\net7.0\TwentyTwenty.Storage.dll
 C:\Users\mervan.kasir\Source\Repos\ECommerceProject\ProductApi\bin\Debug\net7.0\TwentyTwenty.Storage.Local.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\TwentyTwenty.Storage.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\TwentyTwenty.Storage.Local.dll

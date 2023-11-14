@@ -3442,27 +3442,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mervan.kasir\\.nuget\\packages\\": {},
-    "C:\\Program Files\\DevExpress 22.1\\Components\\Offline Packages": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Casper TR\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
+      "projectUniqueName": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
       "projectName": "ProductApi",
-      "projectPath": "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
-      "packagesPath": "C:\\Users\\mervan.kasir\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mervan.kasir\\Source\\Repos\\ECommerceProject\\ProductApi\\obj\\",
+      "projectPath": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\ProductApi\\ProductApi.csproj",
+      "packagesPath": "C:\\Users\\Casper TR\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\ProductApi\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\DevExpress 22.1\\Components\\Offline Packages",
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\mervan.kasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 22.1.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Casper TR\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3470,11 +3462,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\DevExpress 22.1\\Components\\System\\Components\\Packages": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
-        "C:\\Users\\siratigui.coulibaly\\.nuget\\packages": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://xpandnugetserver.azurewebsites.net/nuget": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
@@ -3546,7 +3534,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
