@@ -16,6 +16,7 @@ namespace Identity.Controllers
         public AuthController(IAuthService authService)
         {
             _authService = authService;
+            _response = new ResponseDto();
         }
 
         [HttpPost("api/[controller]/Login")]
@@ -35,19 +36,19 @@ namespace Identity.Controllers
             if (isLocked && lockedUntil == null)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages.Add("User wrong credentials");
+                _response.ErrorMessages = new List<string>() { "User wrong credentials" };
             }
 
             if (isLocked)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages.Add($"User account is locked until {lockedUntil}");
+                _response.ErrorMessages = new List<string>() { $"User account is locked until {lockedUntil}" };
             }
 
             if (!loginSucceed)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages.Add($"User not exists");
+                _response.ErrorMessages = new List<string>() { "User not exists" };
             }
 
             return Ok(_response);

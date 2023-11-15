@@ -5,6 +5,8 @@ using Identity.Models;
 using Identity.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,11 +30,62 @@ builder.Configuration.GetSection(ApiConfig.SECTION_NAME).Bind(apiConfig);
 builder.Services.AddSingleton(apiConfig);
 ApiConfig.SetUpInstance(apiConfig);
 
-//var appSettingsSection = builder.Configuration.GetSection("ApiConfig");
-//builder.Services.Configure<ApiConfig>(appSettingsSection);
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
+          options =>
+          {
+              options.Tokens.ChangeEmailTokenProvider = TokenOptions.DefaultEmailProvider;
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+              options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
+
+              options.Lockout.MaxFailedAccessAttempts = 4;
+
+              options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+
+              options.User.RequireUniqueEmail = false;
+
+              options.SignIn.RequireConfirmedEmail = false;
+              options.SignIn.RequireConfirmedPhoneNumber = false;
+
+              options.Password.RequireDigit = true;
+              options.Password.RequireLowercase = true;
+              options.Password.RequireUppercase = true;
+              options.Password.RequireNonAlphanumeric = false;
+              options.Password.RequiredLength = 8;
+          })
+          .AddEntityFrameworkStores<ApplicationDbContext>()
+          .AddDefaultTokenProviders();
+
+var key = Encoding.ASCII.GetBytes(apiConfig.SecretKey);
+
+builder.Services
+    .AddAuthentication()
+    .AddCookie(options =>
+    {
+        options.Events.OnRedirectToLogin = context =>
+        {
+            if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode == StatusCodes.Status200OK)
+            {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            }
+            else
+            {
+                context.Response.Redirect(context.RedirectUri);
+            }
+            return Task.CompletedTask;
+        };
+    })
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 
 var app = builder.Build();
 
@@ -46,6 +99,13 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+using (var scope = app.Services.CreateScope())
+{
+    var initializer = scope.ServiceProvider.GetService<DBInitializer>();
+
+    initializer.Seed().GetAwaiter().GetResult();
+}
 
 app.MapControllers();
 

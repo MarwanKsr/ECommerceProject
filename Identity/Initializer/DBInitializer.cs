@@ -8,10 +8,10 @@ namespace Identity.Initializer
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public DBInitializer(RoleManager<IdentityRole> roleManager/*, UserManager<ApplicationUser> userManager*/)
+        public DBInitializer(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
-            //_userManager = userManager;
+            _userManager = userManager;
         }
 
         public async Task Seed()

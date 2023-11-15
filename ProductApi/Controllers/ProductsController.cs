@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductApi.Dto;
 using ProductApi.Models;
@@ -62,7 +63,7 @@ namespace ProductApi.Controllers
 
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         [Route("Create")]
         public async Task<object> Create(ProductCreateModel productCreateModel/*, IFormFile image*/)
         {
@@ -84,7 +85,7 @@ namespace ProductApi.Controllers
 
 
         [HttpPut]
-        //[Authorize]
+        [Authorize]
         [Route("Update")]
         public async Task<object> Update([FromBody] ProductUpdateModel productUpdateModel/*, IFormFile image*/)
         {
@@ -105,7 +106,7 @@ namespace ProductApi.Controllers
         }
 
         [HttpDelete]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("Delete/{id}")]
         public async Task<object> Delete(int id)
         {

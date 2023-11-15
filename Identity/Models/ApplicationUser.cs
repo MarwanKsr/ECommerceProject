@@ -49,6 +49,6 @@ namespace Identity.Models
             LastName = lastName;
         }
 
-        public string RefreshToken { get; set; }
+        public string? RefreshToken { get; set; }
     }
 }
