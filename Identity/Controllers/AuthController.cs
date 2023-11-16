@@ -19,7 +19,7 @@ namespace Identity.Controllers
             _response = new ResponseDto();
         }
 
-        [HttpPost("api/[controller]/Login")]
+        [HttpPost("Login")]
         [AllowAnonymous]
         public async Task<ActionResult> Login(LoginModel loginModel)
         {
@@ -50,7 +50,7 @@ namespace Identity.Controllers
                 _response.IsSuccess = false;
                 _response.ErrorMessages = new List<string>() { "User not exists" };
             }
-
+            _response.Result = loginResponse;
             return Ok(_response);
         }
     }

@@ -63,7 +63,7 @@ namespace ProductApi.Controllers
 
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [Route("Create")]
         public async Task<object> Create(ProductCreateModel productCreateModel/*, IFormFile image*/)
         {

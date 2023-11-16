@@ -12,8 +12,8 @@ using ProductApi.DbContexts;
 namespace ProductApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231113083103_addPathToImages")]
-    partial class addPathToImages
+    [Migration("20231116182118_InitProject")]
+    partial class InitProject
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

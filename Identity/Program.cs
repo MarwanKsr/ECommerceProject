@@ -3,6 +3,7 @@ using Identity.DbContext;
 using Identity.Initializer;
 using Identity.Models;
 using Identity.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -58,7 +59,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
 var key = Encoding.ASCII.GetBytes(apiConfig.SecretKey);
 
 builder.Services
-    .AddAuthentication()
+    .AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
     .AddCookie(options =>
     {
         options.Events.OnRedirectToLogin = context =>
