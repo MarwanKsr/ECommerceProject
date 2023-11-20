@@ -20,14 +20,14 @@ builder.Services
         x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
-    .AddJwtBearer(options =>
+    .AddJwtBearer("Bearer", options =>
     {
         options.RequireHttpsMetadata = false;
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SecretKey")),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your private secret key your private secret key your private secret key")),
             ValidateIssuer = false,
             ValidateAudience = false
         };
@@ -49,6 +49,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await app.UseOcelot();
+var configuration = new OcelotPipelineConfiguration
+{
+    AuthorizationMiddleware = async (context, next) =>
+    {
+        await next.Invoke();
+    }
+};
+await app.UseOcelot(configuration);
 
 app.Run();

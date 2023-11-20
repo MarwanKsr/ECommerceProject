@@ -6,6 +6,6 @@ namespace ProductApi.Services.Products
     {
         Task<ProductDto> CreateProduct(ProductDto productDto, IFormFile image);
         Task<ProductDto> UpdateProduct(ProductDto productDto, IFormFile image);
-        Task<bool> DeleteProduct(int productId);
+        Task<bool> DeleteProduct(long productId);
     }
 }

@@ -25,7 +25,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "hotReloadProfile": "aspnetcore",
-      "applicationUrl": "https://localhost:3000;http://localhost:3001",
+      "applicationUrl": "https://localhost:1000;http://localhost:1001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

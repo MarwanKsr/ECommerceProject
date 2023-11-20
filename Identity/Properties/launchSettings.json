@@ -19,7 +19,7 @@
     },
     "ECommerce.Identity": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
+      "dotnetRunMessages": true,
       "launchBrowser": true,
       "hotReloadProfile": "aspnetcore",
       "launchUrl": "swagger",

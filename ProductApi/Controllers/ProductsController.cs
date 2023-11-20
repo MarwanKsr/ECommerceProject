@@ -63,7 +63,6 @@ namespace ProductApi.Controllers
 
 
         [HttpPost]
-        //[Authorize]
         [Route("Create")]
         public async Task<object> Create(ProductCreateModel productCreateModel/*, IFormFile image*/)
         {
@@ -85,7 +84,6 @@ namespace ProductApi.Controllers
 
 
         [HttpPut]
-        [Authorize]
         [Route("Update")]
         public async Task<object> Update([FromBody] ProductUpdateModel productUpdateModel/*, IFormFile image*/)
         {
@@ -106,7 +104,6 @@ namespace ProductApi.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Admin")]
         [Route("Delete/{id}")]
         public async Task<object> Delete(int id)
         {
@@ -114,6 +111,42 @@ namespace ProductApi.Controllers
             {
                 bool isSuccess = await _productCommandRepository.DeleteProduct(id);
                 _response.Result = isSuccess;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpGet]
+        [Route("{id}/GetStock")]
+        public async Task<object> GetStock(int id)
+        {
+            try
+            {
+                var stockNumber = await _productQueryRepository.GetProductStockById(id);
+                _response.Result = stockNumber;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpGet]
+        [Route("{id}/GetPrice")]
+        public async Task<object> GetPrice(int id)
+        {
+            try
+            {
+                var productPrice = await _productQueryRepository.GetProductPriceById(id);
+                _response.Result = productPrice;
             }
             catch (Exception ex)
             {

@@ -14,9 +14,13 @@ namespace ProductApi.Services.Products
             _productRepository = productRepository;
         }
 
-        public async Task<ProductDto> GetProductById(int productId)
+        private async Task<Product> GetById(long productId)
         {
-            var product = await _productRepository.Query(x => x.Id == productId).AsNoTracking().FirstOrDefaultAsync();
+            return await _productRepository.Query(e => e.Id == productId).AsNoTracking().FirstOrDefaultAsync();
+        }
+        public async Task<ProductDto> GetProductById(long productId)
+        {
+            var product = await GetById(productId);
             if (product is null)
                 return default;
             return ProductDto.FromEntity(product);
@@ -36,6 +40,24 @@ namespace ProductApi.Services.Products
                 ProductDtos.Add(ProductDto.FromEntity(product));
             }
             return ProductDtos;
+        }
+
+        public async Task<int> GetProductStockById(long productId)
+        {
+            var product = await GetById(productId);
+            if (product is null)
+                throw new ArgumentNullException("Product not found");
+            return product.Stock;
+
+        }
+
+        public async Task<double> GetProductPriceById(long productId)
+        {
+            var product = await GetById(productId);
+            if (product is null)
+                throw new ArgumentNullException("Product not found");
+            return product.Price;
+
         }
     }
 }

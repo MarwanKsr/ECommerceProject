@@ -24,7 +24,7 @@ namespace ProductApi.Services.Products
             return ProductDto.FromEntity(product);
         }
 
-        public async Task<bool> DeleteProduct(int productId)
+        public async Task<bool> DeleteProduct(long productId)
         {
             try
             {

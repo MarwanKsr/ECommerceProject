@@ -19,11 +19,11 @@
     },
     "ECommerce.ProductApi": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
+      "dotnetRunMessages": true,
       "launchBrowser": true,
       "hotReloadProfile": "aspnetcore",
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:1001;http://localhost:1000",
+      "applicationUrl": "https://localhost:3001;http://localhost:3000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -5,6 +5,8 @@ namespace ProductApi.Services.Products
     public interface IProductQueryService
     {
         Task<IEnumerable<ProductDto>> GetProducts();
-        Task<ProductDto> GetProductById(int productId);
+        Task<ProductDto> GetProductById(long productId);
+        Task<int> GetProductStockById(long productId);
+        Task<double> GetProductPriceById(long productId);
     }
 }
