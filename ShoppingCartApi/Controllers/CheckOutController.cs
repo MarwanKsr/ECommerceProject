@@ -61,13 +61,13 @@ namespace ShoppingCardApi.Controllers
                     }
                 }
 
-                var rabbitMqModel = new RabbitMQModel()
+                var rabbitMqCheckoutModel = new RabbitMQCheckoutModel()
                 {
                     CheckoutModel = checkoutModel,
                     CardDetails = cardDetails,
                 };
 
-                _rabbitMQSender.SendMessage(rabbitMqModel, "checkoutqueue");
+                _rabbitMQSender.SendMessage(rabbitMqCheckoutModel, "checkoutqueue");
             }
             catch (Exception ex)
             {

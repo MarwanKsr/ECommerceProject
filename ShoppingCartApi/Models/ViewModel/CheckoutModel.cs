@@ -15,6 +15,5 @@ namespace ShoppingCardApi.Models.ViewModel
         public string CVV { get; set; }
         public string ExpiryMonth { get; set; }
         public string ExpiryYear { get; set; }
-        //public IEnumerable<CardDetailsDto> CardDetails { get; set; }
     }
 }
