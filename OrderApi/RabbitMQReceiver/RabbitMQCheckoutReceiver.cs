@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
 using OrderApi.Configuration;
+using OrderApi.Models;
 using OrderApi.Models.ViewModel;
+using OrderApi.RabbitMQSender;
+using OrderApi.Services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
@@ -9,14 +12,20 @@ namespace OrderApi.RabbitMQReceiver
 {
     public class RabbitMQCheckoutReceiver : BackgroundService
     {
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IRabbitMQSender _rabbitMQSender;
         private readonly string _hostname;
         private readonly string _password;
         private readonly string _username;
         private IConnection _connection;
         private IModel _channel;
 
-        public RabbitMQCheckoutReceiver()
+        public RabbitMQCheckoutReceiver(
+            IServiceProvider serviceProvider,
+            IRabbitMQSender rabbitMQSender)
         {
+            _serviceProvider = serviceProvider;
+            _rabbitMQSender = rabbitMQSender;
             var rabbitMQSetting = RabbitMQSetting.Instance;
             _hostname = rabbitMQSetting.HostName;
             _password = rabbitMQSetting.Password;
@@ -44,7 +53,58 @@ namespace OrderApi.RabbitMQReceiver
 
         private async Task HandleMessage(RabbitMQCheckoutModel rabbitMQCheckout)
         {
+            OrderHeader orderHeader = new()
+            {
+                UserId = rabbitMQCheckout.CheckoutModel.UserId,
+                FirstName = rabbitMQCheckout.CheckoutModel.FirstName,
+                LastName = rabbitMQCheckout.CheckoutModel.LastName,
+                //OrderDetails = new List<OrderDetails>(),
+                CardNumber = rabbitMQCheckout.CheckoutModel.CardNumber,
+                CVV = rabbitMQCheckout.CheckoutModel.CVV,
+                Email = rabbitMQCheckout.CheckoutModel.Email,
+                ExpiryMonth = rabbitMQCheckout.CheckoutModel.ExpiryMonth,
+                ExpiryYear = rabbitMQCheckout.CheckoutModel.ExpiryYear,
+                OrderTime = DateTime.Now,
+                OrderTotal = rabbitMQCheckout.CheckoutModel.OrderTotal,
+                IsSuccess = false,
+                Phone = rabbitMQCheckout.CheckoutModel.Phone,
+            };
+            foreach (var detailList in rabbitMQCheckout.CardDetails)
+            {
+                OrderDetails orderDetails = new()
+                {
+                    Product = detailList.Product.ToEntity(),
+                    Count = detailList.Count,
+                    Id = detailList.Id,
+                };
+                orderHeader.CardTotalItems += detailList.Count;
+                //orderHeader.OrderDetails.Add(orderDetails);
+            }
+            using (IServiceScope scope = _serviceProvider.CreateScope())
+            {
+                IOrderCommandService _orderCommandService =
+                    scope.ServiceProvider.GetRequiredService<IOrderCommandService>();
 
+                var isSuccess = await _orderCommandService.AddOrder(orderHeader);
+                if (!isSuccess)
+                {
+                    throw new ArgumentException("An error occurs while Adding order");
+                }
+            }
+
+            PaymentRequestMessage paymentRequestMessage = new()
+            {
+                Name = orderHeader.FirstName + " " + orderHeader.LastName,
+                CardNumber = orderHeader.CardNumber,
+                CVV = orderHeader.CVV,
+                ExpiryMonth = orderHeader.ExpiryMonth,
+                ExpiryYear = orderHeader.ExpiryYear,
+                OrderId = orderHeader.Id,
+                OrderTotal = orderHeader.OrderTotal,
+                Email = orderHeader.Email
+            };
+
+            _rabbitMQSender.SendMessage(paymentRequestMessage, "OrderPaymentProcessQueue");
         }
 
         private void CreateConnection()

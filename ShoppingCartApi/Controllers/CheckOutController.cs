@@ -65,6 +65,7 @@ namespace ShoppingCardApi.Controllers
                 {
                     CheckoutModel = checkoutModel,
                     CardDetails = cardDetails,
+                    MessageCreated = DateTime.Now
                 };
 
                 _rabbitMQSender.SendMessage(rabbitMqCheckoutModel, "checkoutqueue");
