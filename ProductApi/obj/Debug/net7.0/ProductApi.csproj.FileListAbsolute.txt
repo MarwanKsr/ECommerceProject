@@ -158,3 +158,15 @@ C:\Users\mervan.kasir\Source\Repos\ECommerceProject\ProductApi\bin\Debug\net7.0\
 C:\Users\mervan.kasir\Source\Repos\ECommerceProject\ProductApi\bin\Debug\net7.0\TwentyTwenty.Storage.Local.dll
 C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\TwentyTwenty.Storage.dll
 C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\TwentyTwenty.Storage.Local.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\Microsoft.Extensions.Http.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\RabbitMQ.Client.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\SharedLibrary.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\SharedLibrary.pdb

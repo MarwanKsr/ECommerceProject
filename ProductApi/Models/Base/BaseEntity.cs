@@ -1,12 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SharedLibrary.Base.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProductApi.Models.Base
 {
-    public abstract class BaseEntity
-    {
-        public long Id { get; init; }
-    }
-
     public interface IAuditable
     {
         string CreatedBy { get; set; }

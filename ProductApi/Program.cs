@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using ProductApi.Configuration;
 using ProductApi.DbContexts;
-using ProductApi.Repository;
 using ProductApi.Services.Images;
 using ProductApi.Services.Products;
 using ProductApi.StorageFactory;
+using SharedLibrary.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 builder.Services.AddScoped<IProductQueryService, ProductQueryService>();
 builder.Services.AddScoped<IProductCommandService, ProductCommandService>();
 builder.Services.AddScoped<IStorageServiceFactory, StorageServiceFactory>();

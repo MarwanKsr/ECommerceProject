@@ -1,16 +1,17 @@
-﻿using ProductApi.Dto;
+﻿using ProductApi.DbContexts;
+using ProductApi.Dto;
 using ProductApi.Models;
-using ProductApi.Repository;
 using ProductApi.Services.Images;
+using SharedLibrary.Repository;
 
 namespace ProductApi.Services.Products
 {
     public class ProductCommandService : IProductCommandService
     {
-        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<Product, ApplicationDbContext> _productRepository;
         private readonly IMediaService _imageService;
 
-        public ProductCommandService(IRepository<Product> productRepository, IMediaService imageService)
+        public ProductCommandService(IRepository<Product, ApplicationDbContext> productRepository, IMediaService imageService)
         {
             _productRepository = productRepository;
             _imageService = imageService;

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProductApi.Dto;
 using ProductApi.Models;
 using ProductApi.Services.Products;
+using SharedLibrary.Dtos;
 
 namespace ProductApi.Controllers
 {

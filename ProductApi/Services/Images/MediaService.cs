@@ -1,8 +1,9 @@
 ﻿using ProductApi.Configuration;
+using ProductApi.DbContexts;
 using ProductApi.Extensions;
 using ProductApi.Models;
-using ProductApi.Repository;
 using ProductApi.StorageFactory;
+using SharedLibrary.Repository;
 using TwentyTwenty.Storage;
 
 namespace ProductApi.Services.Images
@@ -12,12 +13,12 @@ namespace ProductApi.Services.Images
         private readonly string _galleryUrl;
         private readonly IStorageServiceFactory _storageServiceFactory;
         private readonly IStorageProvider _storageProvider;
-        private readonly IRepository<Image> _imageRepository;
+        private readonly IRepository<Image, ApplicationDbContext> _imageRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         public MediaService(
             IStorageServiceFactory storageServiceFactory,
-            IRepository<Image> imageRepository,
+            IRepository<Image, ApplicationDbContext> imageRepository,
             IWebHostEnvironment webHostEnvironment)
         {
             _storageServiceFactory = storageServiceFactory;

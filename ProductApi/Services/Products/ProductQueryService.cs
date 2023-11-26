@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProductApi.DbContexts;
 using ProductApi.Dto;
 using ProductApi.Models;
-using ProductApi.Repository;
+using SharedLibrary.Repository;
 
 namespace ProductApi.Services.Products
 {
     public class ProductQueryService : IProductQueryService
     {
-        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<Product, ApplicationDbContext> _productRepository;
 
-        public ProductQueryService(IRepository<Product> productRepository)
+        public ProductQueryService(IRepository<Product, ApplicationDbContext> productRepository)
         {
             _productRepository = productRepository;
         }
