@@ -1,4 +1,4 @@
-﻿using OrderApi.Models.Base;
+﻿using SharedLibrary.Base.Entity;
 
 namespace OrderApi.Models
 {
@@ -17,6 +17,5 @@ namespace OrderApi.Models
         public string ExpiryYear { get; set; }
         public int CardTotalItems { get; set; }
         public bool IsSuccess { get; set; }
-        public IList<OrderDetails> OrderDetails { get; set; }
     }
 }

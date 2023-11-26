@@ -76,3 +76,13 @@ C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\runti
 C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\Microsoft.Extensions.Http.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\SharedLibrary.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\SharedLibrary.pdb

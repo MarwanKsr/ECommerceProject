@@ -36,17 +36,12 @@ namespace OrderApi.Migrations
                     b.Property<long>("OrderHeaderId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("OrderHeaderId1")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrderHeaderId");
-
-                    b.HasIndex("OrderHeaderId1");
 
                     b.HasIndex("ProductId");
 
@@ -114,6 +109,25 @@ namespace OrderApi.Migrations
                     b.ToTable("OrderHeaders");
                 });
 
+            modelBuilder.Entity("OrderApi.Models.OrderHeaderOrderDetails", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("OrderDetailsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("OrderHeaderId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderHeaderOrderDetails");
+                });
+
             modelBuilder.Entity("OrderApi.Models.Product", b =>
                 {
                     b.Property<long>("Id")
@@ -142,10 +156,6 @@ namespace OrderApi.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("OrderApi.Models.OrderHeader", null)
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderHeaderId1");
-
                     b.HasOne("OrderApi.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -155,11 +165,6 @@ namespace OrderApi.Migrations
                     b.Navigation("OrderHeader");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("OrderApi.Models.OrderHeader", b =>
-                {
-                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }

@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCardApi", "Shopping
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderApi", "OrderApi\OrderApi.csproj", "{4F0C252F-7A27-4FF3-B199-325B4303C97F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{D889E86E-A26B-4187-BDAA-1F16CB05DD75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "SharedLibrary\SharedLibrary.csproj", "{4E2F118E-9F60-4F5F-999C-23593AD9E925}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,10 @@ Global
 		{4F0C252F-7A27-4FF3-B199-325B4303C97F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F0C252F-7A27-4FF3-B199-325B4303C97F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F0C252F-7A27-4FF3-B199-325B4303C97F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E2F118E-9F60-4F5F-999C-23593AD9E925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E2F118E-9F60-4F5F-999C-23593AD9E925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E2F118E-9F60-4F5F-999C-23593AD9E925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E2F118E-9F60-4F5F-999C-23593AD9E925}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +61,7 @@ Global
 		{14858483-45E6-4740-B281-D78F37C881E5} = {94B9B818-5B8A-4F73-B887-9EB913B0B9A3}
 		{63D8450C-A559-4513-8202-7BD4846B0886} = {4BCFDF63-A796-465D-BAC3-C91FA4AD7634}
 		{4F0C252F-7A27-4FF3-B199-325B4303C97F} = {4BCFDF63-A796-465D-BAC3-C91FA4AD7634}
+		{4E2F118E-9F60-4F5F-999C-23593AD9E925} = {D889E86E-A26B-4187-BDAA-1F16CB05DD75}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F6CC96D-7BF0-4CA3-BEA7-732B29A60491}

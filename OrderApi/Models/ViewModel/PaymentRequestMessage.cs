@@ -1,4 +1,4 @@
-﻿using OrderApi.Models.Base;
+﻿using SharedLibrary.Base.Message;
 
 namespace OrderApi.Models.ViewModel
 {

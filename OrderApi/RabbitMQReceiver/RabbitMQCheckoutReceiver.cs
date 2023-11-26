@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
-using OrderApi.Configuration;
 using OrderApi.Models;
 using OrderApi.Models.ViewModel;
-using OrderApi.RabbitMQSender;
-using OrderApi.Services;
+using OrderApi.Services.Orders;
+using OrderApi.Services.Products;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using SharedLibrary.Configuration;
+using SharedLibrary.Dtos;
+using SharedLibrary.RabbitMQSender;
 using System.Text;
 
 namespace OrderApi.RabbitMQReceiver
@@ -58,7 +60,6 @@ namespace OrderApi.RabbitMQReceiver
                 UserId = rabbitMQCheckout.CheckoutModel.UserId,
                 FirstName = rabbitMQCheckout.CheckoutModel.FirstName,
                 LastName = rabbitMQCheckout.CheckoutModel.LastName,
-                //OrderDetails = new List<OrderDetails>(),
                 CardNumber = rabbitMQCheckout.CheckoutModel.CardNumber,
                 CVV = rabbitMQCheckout.CheckoutModel.CVV,
                 Email = rabbitMQCheckout.CheckoutModel.Email,
@@ -69,23 +70,36 @@ namespace OrderApi.RabbitMQReceiver
                 IsSuccess = false,
                 Phone = rabbitMQCheckout.CheckoutModel.Phone,
             };
-            foreach (var detailList in rabbitMQCheckout.CardDetails)
-            {
-                OrderDetails orderDetails = new()
-                {
-                    Product = detailList.Product.ToEntity(),
-                    Count = detailList.Count,
-                    Id = detailList.Id,
-                };
-                orderHeader.CardTotalItems += detailList.Count;
-                //orderHeader.OrderDetails.Add(orderDetails);
-            }
+            var orderDetailsList = new List<OrderDetails>();
             using (IServiceScope scope = _serviceProvider.CreateScope())
             {
+                IProductService _productService = scope.ServiceProvider.GetService<IProductService>();  
+                foreach (var detailList in rabbitMQCheckout.CardDetails)
+                {
+                    OrderDetails orderDetails = new()
+                    {
+                        Product = detailList.Product.ToEntity(),
+                        Count = detailList.Count,
+                        Id = detailList.Id,
+                    };
+                    orderHeader.CardTotalItems += detailList.Count;
+                    orderDetailsList.Add(orderDetails);
+                    var response = await _productService.GetProductPriceById<ResponseDto>(orderDetails.Product.Id, default);
+                    if (response == null || !response.IsSuccess)
+                    {
+                        throw new ArgumentException("Error occurs while call product's price action");
+                    }
+                    var productCurrentPrice = Convert.ToDouble(response.Result);
+                    if (productCurrentPrice != orderDetails.Product.Price)
+                    {
+                        throw new ArgumentException($"{orderDetails.Product.Name}'s price has changed please refresh the page");
+                    }
+                }
+
                 IOrderCommandService _orderCommandService =
                     scope.ServiceProvider.GetRequiredService<IOrderCommandService>();
 
-                var isSuccess = await _orderCommandService.AddOrder(orderHeader);
+                var isSuccess = await _orderCommandService.AddOrder(orderHeader, orderDetailsList);
                 if (!isSuccess)
                 {
                     throw new ArgumentException("An error occurs while Adding order");
