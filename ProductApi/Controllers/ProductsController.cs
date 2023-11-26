@@ -123,13 +123,13 @@ namespace ProductApi.Controllers
         }
 
         [HttpGet]
-        [Route("{id}/GetStock")]
-        public async Task<object> GetStock(int id)
+        [Route("{id}/DecreaseStock")]
+        public async Task<object> DecreaseStock(int id,[FromQuery] int wantedCount)
         {
             try
             {
-                var stockNumber = await _productQueryRepository.GetProductStockById(id);
-                _response.Result = stockNumber;
+                var isSuccess = await _productCommandRepository.DecreaseStock(id, wantedCount);
+                _response.Result = isSuccess;
             }
             catch (Exception ex)
             {

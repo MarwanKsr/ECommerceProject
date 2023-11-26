@@ -8,16 +8,12 @@
     ".NETCoreApp,Version=v7.0": {
       "ShoppingCardApi/1.0.0": {
         "dependencies": {
-          "AutoMapper": "12.0.1",
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.13",
           "Microsoft.AspNetCore.OpenApi": "7.0.4",
           "Microsoft.EntityFrameworkCore": "7.0.13",
           "Microsoft.EntityFrameworkCore.Design": "7.0.13",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.13",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.13",
-          "Newtonsoft.Json": "13.0.3",
-          "RabbitMQ.Client": "6.7.0",
           "SharedLibrary": "1.0.0",
           "Swashbuckle.AspNetCore": "6.4.0"
         },
@@ -739,6 +735,8 @@
       },
       "SharedLibrary/1.0.0": {
         "dependencies": {
+          "AutoMapper": "12.0.1",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
           "Microsoft.EntityFrameworkCore": "7.0.13",
           "Microsoft.Extensions.Http": "8.0.0",
           "Newtonsoft.Json": "13.0.3",

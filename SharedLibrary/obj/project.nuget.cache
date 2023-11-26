@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "eUu0eqs91nLDf09lfdyE9UYlKTViNtkSun4cNlKHlcNBfPdXJUdzksELiZ0hY6Y6QkYLr06ECbiDbvWHTpU4jg==",
+  "dgSpecHash": "ChF/4Ppdbnkq12AHPhYruavisRP7KTWW0FLG9F5JPvJkO/0/5s124cTwA6xP0pZtTNHJa3Uj8G2KYNkEQTXexA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\SharedLibrary\\SharedLibrary.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Casper TR\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\Casper TR\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\Casper TR\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Casper TR\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.13\\microsoft.entityframeworkcore.7.0.13.nupkg.sha512",
     "C:\\Users\\Casper TR\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.13\\microsoft.entityframeworkcore.abstractions.7.0.13.nupkg.sha512",
     "C:\\Users\\Casper TR\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.13\\microsoft.entityframeworkcore.analyzers.7.0.13.nupkg.sha512",

@@ -36,6 +36,8 @@ builder.Services.AddSingleton<IRabbitMQSender, RabbitMQSender>();
 
 builder.Services.AddHostedService<RabbitMQCheckoutReceiver>();
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddHttpClient();
 var app = builder.Build();
 

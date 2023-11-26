@@ -6,7 +6,6 @@ namespace ProductApi.Services.Products
     {
         Task<IEnumerable<ProductDto>> GetProducts();
         Task<ProductDto> GetProductById(long productId);
-        Task<int> GetProductStockById(long productId);
         Task<double> GetProductPriceById(long productId);
     }
 }

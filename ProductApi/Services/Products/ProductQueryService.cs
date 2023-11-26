@@ -43,15 +43,6 @@ namespace ProductApi.Services.Products
             return ProductDtos;
         }
 
-        public async Task<int> GetProductStockById(long productId)
-        {
-            var product = await GetById(productId);
-            if (product is null)
-                throw new ArgumentNullException("Product not found");
-            return product.Stock;
-
-        }
-
         public async Task<double> GetProductPriceById(long productId)
         {
             var product = await GetById(productId);

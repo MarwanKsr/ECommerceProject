@@ -86,3 +86,5 @@ C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\Micro
 C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
 C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\SharedLibrary.dll
 C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\SharedLibrary.pdb
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

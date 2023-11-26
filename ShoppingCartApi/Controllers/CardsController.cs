@@ -77,5 +77,21 @@ namespace ShoppingCardApi.Controllers
             }
             return _response;
         }
+
+        [HttpPost("ClearCard/{userId}")]
+        public async Task<object> ClearCard(string userId)
+        {
+            try
+            {
+                bool isSuccess = await _cardCommandService.ClearCard(userId);
+                _response.Result = isSuccess;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
     }
 }

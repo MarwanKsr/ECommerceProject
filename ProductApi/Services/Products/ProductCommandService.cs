@@ -25,6 +25,16 @@ namespace ProductApi.Services.Products
             return ProductDto.FromEntity(product);
         }
 
+        public async Task<bool> DecreaseStock(long productId, int wantedCount)
+        {
+            var product = await _productRepository.FindAsync(productId) ?? throw new ArgumentException("Product not found");
+            product.DecreaseStock(wantedCount);
+
+            var affRows = await _productRepository.ModifyAndSaveAsync(product);
+
+            return affRows >= 1;
+        }
+
         public async Task<bool> DeleteProduct(long productId)
         {
             try

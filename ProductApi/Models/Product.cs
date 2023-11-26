@@ -57,5 +57,23 @@ namespace ProductApi.Models
                 throw new ArgumentOutOfRangeException("Stock cann't be less or equal to zero");
             Stock = stock;
         }
+
+        public void DecreaseStock(int wantedCount)
+        {
+            if (wantedCount <= 0)
+                throw new ArgumentException($"{Name}'s count cann't be less or equal to zero");
+
+            if (Stock <= 0)
+            {
+                throw new ArgumentException($"Stock of {Name} is over");
+            }
+
+            if (wantedCount > Stock)
+            {
+                throw new ArgumentException($"Only {Stock} left of {Name}");
+            }
+
+            Stock -= wantedCount;
+        }
     }
 }

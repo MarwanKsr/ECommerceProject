@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using OrderApi.Models;
 using OrderApi.Models.ViewModel;
 using OrderApi.Services.Orders;
@@ -16,6 +17,7 @@ namespace OrderApi.RabbitMQReceiver
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IRabbitMQSender _rabbitMQSender;
+        private readonly IMapper _mapper;
         private readonly string _hostname;
         private readonly string _password;
         private readonly string _username;
@@ -24,10 +26,12 @@ namespace OrderApi.RabbitMQReceiver
 
         public RabbitMQCheckoutReceiver(
             IServiceProvider serviceProvider,
-            IRabbitMQSender rabbitMQSender)
+            IRabbitMQSender rabbitMQSender,
+            IMapper mapper)
         {
             _serviceProvider = serviceProvider;
             _rabbitMQSender = rabbitMQSender;
+            _mapper = mapper;
             var rabbitMQSetting = RabbitMQSetting.Instance;
             _hostname = rabbitMQSetting.HostName;
             _password = rabbitMQSetting.Password;
@@ -71,6 +75,7 @@ namespace OrderApi.RabbitMQReceiver
                 Phone = rabbitMQCheckout.CheckoutModel.Phone,
             };
             var orderDetailsList = new List<OrderDetails>();
+            var orderDetailsDtoList = new List<OrderDetailsDto>();
             using (IServiceScope scope = _serviceProvider.CreateScope())
             {
                 IProductService _productService = scope.ServiceProvider.GetService<IProductService>();  
@@ -84,7 +89,7 @@ namespace OrderApi.RabbitMQReceiver
                     };
                     orderHeader.CardTotalItems += detailList.Count;
                     orderDetailsList.Add(orderDetails);
-                    var response = await _productService.GetProductPriceById<ResponseDto>(orderDetails.Product.Id, default);
+                    var response = await _productService.GetProductPriceById<ResponseDto>(orderDetails.Product.ProductId, default);
                     if (response == null || !response.IsSuccess)
                     {
                         throw new ArgumentException("Error occurs while call product's price action");
@@ -94,6 +99,7 @@ namespace OrderApi.RabbitMQReceiver
                     {
                         throw new ArgumentException($"{orderDetails.Product.Name}'s price has changed please refresh the page");
                     }
+                    orderDetailsDtoList.Add(_mapper.Map<OrderDetailsDto>(orderDetails));
                 }
 
                 IOrderCommandService _orderCommandService =
@@ -105,17 +111,10 @@ namespace OrderApi.RabbitMQReceiver
                     throw new ArgumentException("An error occurs while Adding order");
                 }
             }
-
-            PaymentRequestMessage paymentRequestMessage = new()
+            PaymentRequestModel paymentRequestMessage = new()
             {
-                Name = orderHeader.FirstName + " " + orderHeader.LastName,
-                CardNumber = orderHeader.CardNumber,
-                CVV = orderHeader.CVV,
-                ExpiryMonth = orderHeader.ExpiryMonth,
-                ExpiryYear = orderHeader.ExpiryYear,
-                OrderId = orderHeader.Id,
-                OrderTotal = orderHeader.OrderTotal,
-                Email = orderHeader.Email
+                OrderHeader = _mapper.Map<OrderHeaderDto>(orderHeader),
+                OrderDetails = orderDetailsDtoList
             };
 
             _rabbitMQSender.SendMessage(paymentRequestMessage, "OrderPaymentProcessQueue");

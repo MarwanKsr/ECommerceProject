@@ -48,7 +48,7 @@ namespace ShoppingCardApi.Controllers
                 var cardDetails = cardDto.CardDetails;
                 foreach (var item in cardDetails)
                 {
-                    var response = await _productService.GetProductPriceById<ResponseDto>(item.Product.Id ,default);
+                    var response = await _productService.GetProductPriceById<ResponseDto>(item.Product.ProductId ,default);
                     if (response == null || !response.IsSuccess)
                     {
                         throw new ArgumentException("Error occurs while call product's price action");

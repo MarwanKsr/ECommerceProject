@@ -15,6 +15,7 @@
             return new()
             {
                 Id = product.Id,
+                ProductId = product.ProductId,
                 Name = product.Name,
                 Description = product.Description,
                 ImageUrl = ImageDto.FromEntity(product.Image)?.AbsoluteUrl,
