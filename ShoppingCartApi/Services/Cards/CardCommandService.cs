@@ -1,22 +1,23 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Repository;
+using ShoppingCartApi.DbContexts;
 using ShoppingCartApi.Models;
 using ShoppingCartApi.Models.Dto;
-using ShoppingCartApi.Repository;
 
 namespace ShoppingCartApi.Services.Cards
 {
     public class CardCommandService : ICardCommandService
     {
-        private readonly IRepository<CardHeader> _cartHeaderRepository;
-        private readonly IRepository<CardDetails> _cartDetailsRepository;
-        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<CardHeader, ApplicationDbContext> _cartHeaderRepository;
+        private readonly IRepository<CardDetails, ApplicationDbContext> _cartDetailsRepository;
+        private readonly IRepository<Product, ApplicationDbContext> _productRepository;
         private readonly IMapper _mapper;
 
         public CardCommandService(
-            IRepository<CardHeader> cartHeaderRepository,
-            IRepository<CardDetails> cartDetailsRepository,
-            IRepository<Product> productRepository,
+            IRepository<CardHeader, ApplicationDbContext> cartHeaderRepository,
+            IRepository<CardDetails, ApplicationDbContext> cartDetailsRepository,
+            IRepository<Product, ApplicationDbContext> productRepository,
             IMapper mapper)
         {
             _cartHeaderRepository = cartHeaderRepository;
@@ -42,11 +43,12 @@ namespace ShoppingCartApi.Services.Cards
         {
             Card card = _mapper.Map<Card>(cardDto);
 
-            var product = await _productRepository.FirstOrDefaultAsync(e => e.Id == card.CardDetails.FirstOrDefault().Product.Id);
+            var product = await _productRepository.FirstOrDefaultAsync(e => e.ProductId == card.CardDetails.FirstOrDefault().Product.ProductId);
 
             if (product is null)
             {
                 await _productRepository.AddAndSaveAsync(card.CardDetails.FirstOrDefault().Product);
+                product = card.CardDetails.FirstOrDefault().Product;
             }
 
             //check if header is null
@@ -75,7 +77,7 @@ namespace ShoppingCartApi.Services.Cards
                 {
                     //create details
                     var cardDeatilsToAdd = card.CardDetails.FirstOrDefault();
-                    cardDeatilsToAdd.CardHeader= cardDeatils.CardHeader;
+                    cardDeatilsToAdd.CardHeader= cardHeader;
                     cardDeatilsToAdd.Product = product;
                     await _cartDetailsRepository.AddAndSaveAsync(cardDeatilsToAdd);
                 }

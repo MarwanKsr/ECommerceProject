@@ -4,6 +4,79 @@
     "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\ShoppingCartApi\\ShoppingCardApi.csproj": {}
   },
   "projects": {
+    "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\SharedLibrary\\SharedLibrary.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\SharedLibrary\\SharedLibrary.csproj",
+        "projectName": "SharedLibrary",
+        "projectPath": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\SharedLibrary\\SharedLibrary.csproj",
+        "packagesPath": "C:\\Users\\Casper TR\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\SharedLibrary\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Casper TR\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "RabbitMQ.Client": {
+              "target": "Package",
+              "version": "[6.7.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\ShoppingCartApi\\ShoppingCardApi.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -27,7 +100,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\SharedLibrary\\SharedLibrary.csproj": {
+                "projectPath": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\SharedLibrary\\SharedLibrary.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

@@ -1,5 +1,5 @@
-﻿using ShoppingCardApi.Models;
-using ShoppingCardApi.Services.Base;
+﻿using SharedLibrary.Base.Services;
+using SharedLibrary.Models;
 
 namespace ShoppingCardApi.Services.Products
 {

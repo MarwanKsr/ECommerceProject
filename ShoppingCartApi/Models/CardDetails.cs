@@ -1,4 +1,4 @@
-﻿using ShoppingCartApi.Models.Base;
+﻿using SharedLibrary.Base.Entity;
 
 namespace ShoppingCartApi.Models
 {

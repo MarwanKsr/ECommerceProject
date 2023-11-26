@@ -1,4 +1,4 @@
-﻿using ShoppingCardApi.Services.Base;
+﻿using SharedLibrary.Base.Services;
 
 namespace ShoppingCardApi.Services.Products
 {

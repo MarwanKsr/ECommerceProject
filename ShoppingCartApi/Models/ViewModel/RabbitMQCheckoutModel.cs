@@ -1,4 +1,4 @@
-﻿using ShoppingCardApi.Models.Base;
+﻿using SharedLibrary.Base.Message;
 using ShoppingCartApi.Models.Dto;
 
 namespace ShoppingCardApi.Models.ViewModel

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SharedLibrary.RabbitMQSender;
 using ShoppingCardApi.Models.ViewModel;
-using ShoppingCardApi.RabbitMQSender;
 using ShoppingCardApi.Services.Products;
 using ShoppingCartApi.Models.Dto;
 using ShoppingCartApi.Services.Cards;

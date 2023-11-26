@@ -79,3 +79,13 @@ C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\obj\Debug\net7.
 C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\obj\Debug\net7.0\ref\ShoppingCardApi.dll
 C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\RabbitMQ.Client.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\Microsoft.Extensions.Http.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\SharedLibrary.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\bin\Debug\net7.0\SharedLibrary.pdb

@@ -1,18 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Repository;
+using ShoppingCartApi.DbContexts;
 using ShoppingCartApi.Models;
 using ShoppingCartApi.Models.Dto;
-using ShoppingCartApi.Repository;
 
 namespace ShoppingCartApi.Services.Cards
 {
     public class CardQueryService : ICardQueryService
     {
-        private readonly IRepository<CardHeader> _cartHeaderRepository;
-        private readonly IRepository<CardDetails> _cartDetailsRepository;
+        private readonly IRepository<CardHeader, ApplicationDbContext> _cartHeaderRepository;
+        private readonly IRepository<CardDetails, ApplicationDbContext> _cartDetailsRepository;
 
         public CardQueryService(
-            IRepository<CardHeader> cartHeaderRepository,
-            IRepository<CardDetails> cartDetailsRepository)
+            IRepository<CardHeader, ApplicationDbContext> cartHeaderRepository,
+            IRepository<CardDetails, ApplicationDbContext> cartDetailsRepository)
         {
             _cartHeaderRepository = cartHeaderRepository;
             _cartDetailsRepository = cartDetailsRepository;

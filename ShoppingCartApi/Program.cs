@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using ShoppingCardApi.Configuration;
-using ShoppingCardApi.Models;
-using ShoppingCardApi.RabbitMQSender;
-using ShoppingCardApi.Services.Base;
+using SharedLibrary.Base.Services;
+using SharedLibrary.Configuration;
+using SharedLibrary.Models;
+using SharedLibrary.RabbitMQSender;
+using SharedLibrary.Repository;
 using ShoppingCardApi.Services.Products;
 using ShoppingCartApi.DbContexts;
-using ShoppingCartApi.Repository;
 using ShoppingCartApi.Services.Cards;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,13 +20,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ICardCommandService, CardCommandService>();
 builder.Services.AddScoped<ICardQueryService, CardQueryService>();
 builder.Services.AddHttpClient<IProductService, ProductService>();
-builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IProductCommandService, ProductCommandService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 builder.Services.AddSingleton<IRabbitMQSender, RabbitMQSender>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

@@ -3,6 +3,7 @@
     public class ProductDto
     {
         public long Id { get; private set; }
+        public long ProductId { get; private set; }
         public string Name { get; private set; }
         public double Price { get; private set; }
         public string Description { get; private set; }

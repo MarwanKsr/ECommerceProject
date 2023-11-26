@@ -1,13 +1,14 @@
-﻿using ShoppingCartApi.Models;
-using ShoppingCartApi.Repository;
+﻿using SharedLibrary.Repository;
+using ShoppingCartApi.DbContexts;
+using ShoppingCartApi.Models;
 
 namespace ShoppingCardApi.Services.Products
 {
     public class ProductCommandService : IProductCommandService
     {
-        IRepository<Product> _productRepository;
+        IRepository<Product, ApplicationDbContext> _productRepository;
 
-        public ProductCommandService(IRepository<Product> productRepository)
+        public ProductCommandService(IRepository<Product, ApplicationDbContext> productRepository)
         {
             _productRepository = productRepository;
         }
