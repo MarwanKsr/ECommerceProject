@@ -62,57 +62,56 @@ namespace PaymentApi.RabbitMQReceiver
             {
                 throw new ArgumentException("Payment model is not found");
             }
-            using (IServiceScope scope = _serviceProvider.CreateScope())
-            {
-                IProductService productService = scope.ServiceProvider.GetService<IProductService>();
-                IPaymentService iyzicoPaymentService = scope.ServiceProvider.GetService<IPaymentService>();
-                IOrderService orderService = scope.ServiceProvider.GetService<IOrderService>();
-                IShoppingCardService shoppingCardService = scope.ServiceProvider.GetService<IShoppingCardService>();
+            using IServiceScope scope = _serviceProvider.CreateScope();
+            IProductService productService = scope.ServiceProvider.GetService<IProductService>();
+            IPaymentService iyzicoPaymentService = scope.ServiceProvider.GetService<IPaymentService>();
+            IOrderService orderService = scope.ServiceProvider.GetService<IOrderService>();
+            IShoppingCardService shoppingCardService = scope.ServiceProvider.GetService<IShoppingCardService>();
 
-                try
+            try
+            {
+                iyzicoPaymentService.Pay(paymentModel);
+                foreach (var item in paymentModel.OrderDetails)
                 {
-                    iyzicoPaymentService.Pay(paymentModel);
-                    foreach (var item in paymentModel.OrderDetails)
+                    var stockResponse = await productService.DecreaseProductStockById<ResponseDto>(item.Product.ProductId, item.Count, default);
+                    if (stockResponse == null || !stockResponse.IsSuccess)
                     {
-                        var stockResponse = await productService.DecreaseProductStockById<ResponseDto>(item.Product.ProductId, item.Count, default);
-                        if (stockResponse == null || !stockResponse.IsSuccess)
-                        {
-                            if (stockResponse.ErrorMessages.Any())
-                                throw new ArgumentException(string.Join(",", stockResponse.ErrorMessages));
-                            throw new ArgumentException("Error occurs while call product's stock action");
-                        }
+                        if (stockResponse.ErrorMessages.Any())
+                            throw new ArgumentException(string.Join(",", stockResponse.ErrorMessages));
+                        throw new ArgumentException("Error occurs while call product's stock action");
                     }
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-
-                var response = await orderService.MakeOrderSuccess<ResponseDto>(paymentModel.OrderHeader.Id, default);
-                if (response == null || !response.IsSuccess)
-                {
-                    if (response.ErrorMessages.Any())
-                        throw new ArgumentException(string.Join(",", response.ErrorMessages));
-                    throw new ArgumentException("Error occurs while make order status success");
-                }
-
-                var res = await shoppingCardService.ClearCard<ResponseDto>(paymentModel.OrderHeader.UserId, default);
-                if (res == null || !res.IsSuccess)
-                {
-                    if (res.ErrorMessages.Any())
-                        throw new ArgumentException(string.Join(",", res.ErrorMessages));
-                    throw new ArgumentException("Error occurs while make order status success");
-                }
-
-                MailRequestModel mailRequestModel = new()
-                {
-                    UserId = paymentModel.OrderHeader.UserId,
-                    FullName = paymentModel.OrderHeader.FullName,
-                    Email = paymentModel.OrderHeader.Email
-                };
-
-                _rabbitMQSender.SendMessage(mailRequestModel, "mailQueue");
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            var response = await orderService.MakeOrderSuccess<ResponseDto>(paymentModel.OrderHeader.Id, default);
+            if (response == null || !response.IsSuccess)
+            {
+                if (response.ErrorMessages.Any())
+                    throw new ArgumentException(string.Join(",", response.ErrorMessages));
+                throw new ArgumentException("Error occurs while make order status success");
+            }
+
+            var res = await shoppingCardService.ClearCard<ResponseDto>(paymentModel.OrderHeader.UserId, default);
+            if (res == null || !res.IsSuccess)
+            {
+                if (res.ErrorMessages.Any())
+                    throw new ArgumentException(string.Join(",", res.ErrorMessages));
+                throw new ArgumentException("Error occurs while make order status success");
+            }
+
+            MailRequestModel mailRequestModel = new()
+            {
+                UserId = paymentModel.OrderHeader.UserId,
+                FullName = paymentModel.OrderHeader.FullName,
+                Email = paymentModel.OrderHeader.Email,
+                OrderHeaderId = paymentModel.OrderHeader.Id.ToString(),
+            };
+
+            _rabbitMQSender.SendMessage(mailRequestModel, "mailQueue");
         }
 
         private void CreateConnection()
