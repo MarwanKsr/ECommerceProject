@@ -13,6 +13,7 @@ namespace Identity.Services
     public class ApplicationSignInManager : SignInManager<ApplicationUser>
     {
         private readonly ApiConfig _apiConfig;
+        UserManager<ApplicationUser> _userManager;
 
         public ApplicationSignInManager(
             UserManager<ApplicationUser> userManager, 
@@ -25,6 +26,7 @@ namespace Identity.Services
             : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes, confirmation)
         {
             _apiConfig = ApiConfig.Instance;
+            _userManager = userManager;
         }
 
         public async Task<LoginResult> Authenticate(string username, string password, bool generateToken, bool generateRefreshToken)
@@ -52,40 +54,57 @@ namespace Identity.Services
 
             await SignInAsync(user, false);
 
+            var userRoles = await _userManager.GetRolesAsync(user);
             // authentication successful 
-            return new(SignInResult.Success, user, generateToken ? GenerateJWT(user) : string.Empty, generateRefreshToken ? GenerateRefreshJWT(user) : string.Empty,
+            return new(SignInResult.Success, user, generateToken ? GenerateJWT(user, userRoles) : string.Empty, generateRefreshToken ? GenerateRefreshJWT(user, userRoles) : string.Empty,
                 DateTime.UtcNow.AddDays(_apiConfig.KeyExpiration), DateTime.UtcNow.AddDays(_apiConfig.RefreshKeyExpiration));
         }
 
-        private string GenerateJWT(ApplicationUser user)
+        private string GenerateJWT(ApplicationUser user, IList<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_apiConfig.SecretKey);
+            var authClaims = new List<Claim>
+            {
+               new Claim(ClaimTypes.Name, user.UserName),
+               new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            };
+
+            foreach (var role in roles)
+            {
+                authClaims.Add(new Claim("Role", role));
+            }
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                new Claim(ClaimTypes.Name, user.Id.ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-                }),
+                Subject = new ClaimsIdentity(authClaims),
                 Expires = DateTime.UtcNow.AddDays(_apiConfig.KeyExpiration),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
+            
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
 
-        private string GenerateRefreshJWT(ApplicationUser user)
+        private string GenerateRefreshJWT(ApplicationUser user, IList<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_apiConfig.SecretRefreshKey);
+            var authClaims = new List<Claim>
+            {
+               new Claim(ClaimTypes.Name, user.UserName),
+               new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            };
+
+            foreach (var role in roles)
+            {
+                authClaims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                new Claim(ClaimTypes.Name, user.Id.ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-                }),
+                Subject = new ClaimsIdentity(authClaims),
                 Expires = DateTime.UtcNow.AddDays(_apiConfig.RefreshKeyExpiration),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

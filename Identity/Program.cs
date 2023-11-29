@@ -64,21 +64,6 @@ builder.Services
         x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
-    .AddCookie(options =>
-    {
-        options.Events.OnRedirectToLogin = context =>
-        {
-            if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode == StatusCodes.Status200OK)
-            {
-                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            }
-            else
-            {
-                context.Response.Redirect(context.RedirectUri);
-            }
-            return Task.CompletedTask;
-        };
-    })
     .AddJwtBearer(options =>
     {
         options.RequireHttpsMetadata = false;

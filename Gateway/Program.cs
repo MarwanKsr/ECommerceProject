@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
@@ -27,7 +26,7 @@ builder.Services
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your private secret key your private secret key your private secret key")),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["ApiConfig:SecretKey"])),
             ValidateIssuer = false,
             ValidateAudience = false
         };
@@ -49,13 +48,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-var configuration = new OcelotPipelineConfiguration
-{
-    AuthorizationMiddleware = async (context, next) =>
-    {
-        await next.Invoke();
-    }
-};
-await app.UseOcelot(configuration);
+await app.UseOcelot();
 
 app.Run();

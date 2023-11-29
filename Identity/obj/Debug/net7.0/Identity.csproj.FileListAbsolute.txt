@@ -80,7 +80,6 @@ C:\Users\mervan.kasir\source\repos\ECommerceProject\Identity\obj\Debug\net7.0\re
 C:\Users\mervan.kasir\source\repos\ECommerceProject\Identity\obj\Debug\net7.0\Identity.pdb
 C:\Users\mervan.kasir\source\repos\ECommerceProject\Identity\obj\Debug\net7.0\Identity.genruntimeconfig.cache
 C:\Users\mervan.kasir\source\repos\ECommerceProject\Identity\obj\Debug\net7.0\ref\Identity.dll
-C:\Users\mervan.kasir\source\repos\ECommerceProject\Identity\bin\Debug\net7.0\Identity.staticwebassets.runtime.json
 C:\Users\Casper TR\source\repos\ECommerceProject\Identity\bin\Debug\net7.0\appsettings.Development.json
 C:\Users\Casper TR\source\repos\ECommerceProject\Identity\bin\Debug\net7.0\appsettings.json
 C:\Users\Casper TR\source\repos\ECommerceProject\Identity\bin\Debug\net7.0\Identity.exe
@@ -164,3 +163,4 @@ C:\Users\Casper TR\source\repos\ECommerceProject\Identity\obj\Debug\net7.0\Ident
 C:\Users\Casper TR\source\repos\ECommerceProject\Identity\obj\Debug\net7.0\Identity.genruntimeconfig.cache
 C:\Users\Casper TR\source\repos\ECommerceProject\Identity\obj\Debug\net7.0\ref\Identity.dll
 C:\Users\Casper TR\source\repos\ECommerceProject\Identity\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\mervan.kasir\source\repos\ECommerceProject\Identity\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
