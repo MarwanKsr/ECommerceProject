@@ -3,6 +3,7 @@ using Iyzipay.Model;
 using Iyzipay.Request;
 using PaymentApi.Models;
 using PaymentApi.Services.Payments.Providers.Iyzico.Models;
+using System.Globalization;
 
 namespace PaymentApi.Services.Payments.Providers.Iyzico
 {
@@ -21,7 +22,7 @@ namespace PaymentApi.Services.Payments.Providers.Iyzico
         }
         public Payment Pay(PaymentModel payment)
         {
-            PaymentCard paymentCard = new PaymentCard
+            var paymentCard = new PaymentCard
             {
                 CardHolderName = payment.OrderHeader.FullName,
                 CardNumber = payment.OrderHeader.CardNumber,
@@ -32,7 +33,7 @@ namespace PaymentApi.Services.Payments.Providers.Iyzico
                 CardAlias = "ECommerce"
             };
 
-            Buyer buyer = new Buyer
+            var buyer = new Buyer
             {
                 Id = payment.OrderHeader.UserId,
                 Name = payment.OrderHeader.FirstName,
@@ -49,19 +50,23 @@ namespace PaymentApi.Services.Payments.Providers.Iyzico
                 ZipCode = "34732"
             };
 
-            Address shippingAddress = new Address();
-            shippingAddress.ContactName = "Jane Doe";
-            shippingAddress.City = "Istanbul";
-            shippingAddress.Country = "Turkey";
-            shippingAddress.Description = "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1";
-            shippingAddress.ZipCode = "34742";
+            var shippingAddress = new Address
+            {
+                ContactName = "Jane Doe",
+                City = "Istanbul",
+                Country = "Turkey",
+                Description = "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
+                ZipCode = "34742"
+            };
 
-            Address billingAddress = new Address();
-            billingAddress.ContactName = "Jane Doe";
-            billingAddress.City = "Istanbul";
-            billingAddress.Country = "Turkey";
-            billingAddress.Description = "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1";
-            billingAddress.ZipCode = "34742";
+            var billingAddress = new Address
+            {
+                ContactName = "Jane Doe",
+                City = "Istanbul",
+                Country = "Turkey",
+                Description = "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
+                ZipCode = "34742"
+            };
 
             var basketItems = new List<BasketItem>();
             foreach (var item in payment.OrderDetails)
@@ -71,16 +76,16 @@ namespace PaymentApi.Services.Payments.Providers.Iyzico
                     Id = item.Product.ProductId.ToString(),
                     Name = item.Product.Name,
                     ItemType = BasketItemType.PHYSICAL.ToString(),
-                    Price = item.Product.Price.ToString(),
+                    Price = item.Product.Price.ToString(CultureInfo.InvariantCulture),
+                    Category1 = "Product"
                 });
             }
-
-            CreatePaymentRequest request = new CreatePaymentRequest
+            var request = new CreatePaymentRequest
             {
                 Locale = Locale.TR.ToString(),
                 ConversationId = new Random().Next(1111, 9999).ToString(),
-                Price = payment.OrderHeader.OrderTotal.ToString(),
-                PaidPrice = payment.OrderHeader.OrderTotal.ToString(),
+                Price = payment.OrderDetails.Sum(e => e.Product.Price).ToString(CultureInfo.InvariantCulture),
+                PaidPrice = payment.OrderDetails.Sum(e => e.Product.Price).ToString(CultureInfo.InvariantCulture),
                 Currency = Currency.TRY.ToString(),
                 Installment = 1,
                 BasketId = payment.OrderHeader.Id.ToString(),

@@ -31,7 +31,7 @@
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
-      "Iyzipay/2.1.55": {
+      "Iyzipay/2.1.54": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "13.0.2"
@@ -638,14 +638,14 @@
         "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
       ]
     },
-    "Iyzipay/2.1.55": {
-      "sha512": "w4UwGNahHAWBv12RK5qIwSiDcmV84bWzBsGJ7Gp2+T1OqFjF6ugQTWamMWIkfCogznd3xO1ftzST8aK9ou5Ypg==",
+    "Iyzipay/2.1.54": {
+      "sha512": "ed1d0wO7N9TEDKYbuNfUBdVZcFGDvg0/Wz00ygrmRxUlPULNGitEMZk6vrtyClj5mdR50Go6jz8wfDH2ozOnYw==",
       "type": "package",
-      "path": "iyzipay/2.1.55",
+      "path": "iyzipay/2.1.54",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "iyzipay.2.1.55.nupkg.sha512",
+        "iyzipay.2.1.54.nupkg.sha512",
         "iyzipay.nuspec",
         "lib/net45/Iyzipay.dll",
         "lib/netstandard2.1/Iyzipay.dll"
@@ -1763,7 +1763,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "Iyzipay >= 2.1.55",
+      "Iyzipay >= 2.1.54",
       "Microsoft.AspNetCore.OpenApi >= 7.0.4",
       "SharedLibrary >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
@@ -1814,7 +1814,7 @@
         "dependencies": {
           "Iyzipay": {
             "target": "Package",
-            "version": "[2.1.55, )"
+            "version": "[2.1.54, )"
           },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",

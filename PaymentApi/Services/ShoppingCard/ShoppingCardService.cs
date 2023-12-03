@@ -17,7 +17,7 @@ namespace PaymentApi.Services.ShoppingCard
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.POST,
-                Url = SD.GatewayAPIBase + $"/api/Cards/ClearCard/{userId}",
+                Url = SD.GatewayAPIBase + $"/api/Cards/ClearCard",
                 AccessToken = token
             });
         }

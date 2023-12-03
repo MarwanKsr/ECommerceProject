@@ -46,7 +46,7 @@
           "dependencies": {
             "Iyzipay": {
               "target": "Package",
-              "version": "[2.1.55, )"
+              "version": "[2.1.54, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",

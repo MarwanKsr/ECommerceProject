@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "PaymentApi/1.0.0": {
         "dependencies": {
-          "Iyzipay": "2.1.55",
+          "Iyzipay": "2.1.54",
           "Microsoft.AspNetCore.OpenApi": "7.0.4",
           "SharedLibrary": "1.0.0",
           "Swashbuckle.AspNetCore": "6.4.0"
@@ -40,14 +40,14 @@
           }
         }
       },
-      "Iyzipay/2.1.55": {
+      "Iyzipay/2.1.54": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
           "lib/netstandard2.1/Iyzipay.dll": {
-            "assemblyVersion": "2.1.55.0",
-            "fileVersion": "2.1.55.0"
+            "assemblyVersion": "2.1.54.0",
+            "fileVersion": "2.1.54.0"
           }
         }
       },
@@ -375,12 +375,12 @@
       "path": "automapper.extensions.microsoft.dependencyinjection/12.0.1",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512"
     },
-    "Iyzipay/2.1.55": {
+    "Iyzipay/2.1.54": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-w4UwGNahHAWBv12RK5qIwSiDcmV84bWzBsGJ7Gp2+T1OqFjF6ugQTWamMWIkfCogznd3xO1ftzST8aK9ou5Ypg==",
-      "path": "iyzipay/2.1.55",
-      "hashPath": "iyzipay.2.1.55.nupkg.sha512"
+      "sha512": "sha512-ed1d0wO7N9TEDKYbuNfUBdVZcFGDvg0/Wz00ygrmRxUlPULNGitEMZk6vrtyClj5mdR50Go6jz8wfDH2ozOnYw==",
+      "path": "iyzipay/2.1.54",
+      "hashPath": "iyzipay.2.1.54.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/7.0.13": {
       "type": "package",

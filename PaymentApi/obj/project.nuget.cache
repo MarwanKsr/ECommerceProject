@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ycvl2x7VvQ9npYA5SCVZWUAG+zWOjJ+wIjDs0ebWbJOVk7KXp1/KzdUBHd4coeVCv3/5BS/bLPOT1ljK36ffew==",
+  "dgSpecHash": "jXil6Jk71/LNNFZ3c2wETV37YuIJNgH9fCKmuutpj09/nHUsQXtTaTpA4NmgJ48uOkLqCu1Q0y7pvYI8Z/87lw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Casper TR\\source\\repos\\ECommerceProject\\PaymentApi\\PaymentApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Casper TR\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Casper TR\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
-    "C:\\Users\\Casper TR\\.nuget\\packages\\iyzipay\\2.1.55\\iyzipay.2.1.55.nupkg.sha512",
+    "C:\\Users\\Casper TR\\.nuget\\packages\\iyzipay\\2.1.54\\iyzipay.2.1.54.nupkg.sha512",
     "C:\\Users\\Casper TR\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.13\\microsoft.aspnetcore.authentication.jwtbearer.7.0.13.nupkg.sha512",
     "C:\\Users\\Casper TR\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.4\\microsoft.aspnetcore.openapi.7.0.4.nupkg.sha512",
     "C:\\Users\\Casper TR\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

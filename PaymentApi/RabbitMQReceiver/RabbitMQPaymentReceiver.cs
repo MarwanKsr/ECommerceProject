@@ -100,9 +100,9 @@ namespace PaymentApi.RabbitMQReceiver
             var res = await shoppingCardService.ClearCard<ResponseDto>(paymentModel.OrderHeader.UserId, paymentModel.AccessToekn);
             if (res == null || !res.IsSuccess)
             {
-                if ((bool)res?.ErrorMessages.Any())
-                    throw new ArgumentException(string.Join(",", res.ErrorMessages));
-                throw new ArgumentException("Error occurs while make order status success");
+                throw new ArgumentException(res is not null
+                    ? string.Join(",", res.ErrorMessages)
+                    : "Error occurs while make order status success");
             }
 
             MailRequestModel mailRequestModel = new()
