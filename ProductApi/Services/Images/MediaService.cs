@@ -28,7 +28,7 @@ namespace ProductApi.Services.Images
             _galleryUrl = _webHostEnvironment.ContentRootPath + HostAppSetting.Instance.MediaUrl;
         }
 
-        public async Task<(Image, bool)> CreateAndSaveImageEntityInstanceByStream(Stream fileStream, string fileName, string contentType)
+        public async Task<(Image, bool)> CreateAndSaveImageEntityInstanceByStream(Stream fileStream, string fileName, string contentType, string modifiedBy)
         {
             var isFileSaved = false;
 
@@ -42,8 +42,8 @@ namespace ProductApi.Services.Images
                 FileSize = fileStream.Length,
                 Path = _galleryUrl.ConvertToAppropriateDirectorySeperator(),
             };
-            image.AuditCreate("User");
-            image.AuditModify("User");
+            image.AuditCreate(modifiedBy);
+            image.AuditModify(modifiedBy);
             try
             {
                 var isSuccess = await image.SaveAttachedFile(_storageProvider, fileStream, _galleryUrl);
@@ -66,18 +66,18 @@ namespace ProductApi.Services.Images
             }
         }
 
-        public async Task<Image> CreateImageByFormFile(IFormFile file)
+        public async Task<Image> CreateImageByFormFile(IFormFile file, string modifiedBy)
         {
             if (file is null)
             {
                 return default;
             }
-            return await CreateImageEntityInstanceByStream(file.OpenReadStream(), file.FileName, file.ContentType);
+            return await CreateImageEntityInstanceByStream(file.OpenReadStream(), file.FileName, file.ContentType, modifiedBy);
         }
 
-        public async Task<Image> CreateImageEntityInstanceByStream(Stream fileStream, string fileName, string contentType)
+        public async Task<Image> CreateImageEntityInstanceByStream(Stream fileStream, string fileName, string contentType, string modifiedBy)
         {
-            var (image, isFileSaved) = await CreateAndSaveImageEntityInstanceByStream(fileStream, fileName, contentType);
+            var (image, isFileSaved) = await CreateAndSaveImageEntityInstanceByStream(fileStream, fileName, contentType, modifiedBy);
 
             if (!isFileSaved)
             {

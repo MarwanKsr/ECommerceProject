@@ -164,3 +164,4 @@ C:\Users\Casper TR\source\repos\ECommerceProject\Identity\obj\Debug\net7.0\Ident
 C:\Users\Casper TR\source\repos\ECommerceProject\Identity\obj\Debug\net7.0\ref\Identity.dll
 C:\Users\Casper TR\source\repos\ECommerceProject\Identity\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\mervan.kasir\source\repos\ECommerceProject\Identity\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\Identity\obj\Debug\net7.0\Identity.sourcelink.json

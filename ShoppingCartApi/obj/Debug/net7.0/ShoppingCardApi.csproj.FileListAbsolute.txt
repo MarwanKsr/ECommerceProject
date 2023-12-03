@@ -180,3 +180,4 @@ C:\Users\mervan.kasir\source\repos\ECommerceProject\ShoppingCartApi\obj\Debug\ne
 C:\Users\mervan.kasir\source\repos\ECommerceProject\ShoppingCartApi\obj\Debug\net7.0\ShoppingCardApi.pdb
 C:\Users\mervan.kasir\source\repos\ECommerceProject\ShoppingCartApi\obj\Debug\net7.0\ShoppingCardApi.genruntimeconfig.cache
 C:\Users\mervan.kasir\source\repos\ECommerceProject\ShoppingCartApi\obj\Debug\net7.0\ref\ShoppingCardApi.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ShoppingCartApi\obj\Debug\net7.0\ShoppingCardApi.sourcelink.json

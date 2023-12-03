@@ -178,3 +178,5 @@ C:\Users\mervan.kasir\source\repos\ECommerceProject\OrderApi\obj\Debug\net7.0\re
 C:\Users\mervan.kasir\source\repos\ECommerceProject\OrderApi\obj\Debug\net7.0\OrderApi.pdb
 C:\Users\mervan.kasir\source\repos\ECommerceProject\OrderApi\obj\Debug\net7.0\OrderApi.genruntimeconfig.cache
 C:\Users\mervan.kasir\source\repos\ECommerceProject\OrderApi\obj\Debug\net7.0\ref\OrderApi.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\OrderApi\obj\Debug\net7.0\OrderApi.sourcelink.json

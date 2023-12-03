@@ -89,7 +89,7 @@ namespace OrderApi.RabbitMQReceiver
                     };
                     orderHeader.CardTotalItems += detailList.Count;
                     orderDetailsList.Add(orderDetails);
-                    var response = await _productService.GetProductPriceById<ResponseDto>(orderDetails.Product.ProductId, default);
+                    var response = await _productService.GetProductPriceById<ResponseDto>(orderDetails.Product.ProductId, rabbitMQCheckout.AccessToekn);
                     if (response == null || !response.IsSuccess)
                     {
                         throw new ArgumentException("Error occurs while call product's price action");
@@ -114,7 +114,9 @@ namespace OrderApi.RabbitMQReceiver
             PaymentRequestModel paymentRequestMessage = new()
             {
                 OrderHeader = _mapper.Map<OrderHeaderDto>(orderHeader),
-                OrderDetails = orderDetailsDtoList
+                OrderDetails = orderDetailsDtoList,
+                AccessToekn = rabbitMQCheckout.AccessToekn,
+                MessageCreated = DateTime.UtcNow,
             };
 
             _rabbitMQSender.SendMessage(paymentRequestMessage, "OrderPaymentProcessQueue");

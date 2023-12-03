@@ -98,3 +98,4 @@ C:\Users\mervan.kasir\source\repos\ECommerceProject\Gateway\obj\Debug\net7.0\ref
 C:\Users\mervan.kasir\source\repos\ECommerceProject\Gateway\obj\Debug\net7.0\Gateway.pdb
 C:\Users\mervan.kasir\source\repos\ECommerceProject\Gateway\obj\Debug\net7.0\Gateway.genruntimeconfig.cache
 C:\Users\mervan.kasir\source\repos\ECommerceProject\Gateway\obj\Debug\net7.0\ref\Gateway.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\Gateway\obj\Debug\net7.0\Gateway.sourcelink.json

@@ -7,12 +7,11 @@ namespace ProductApi.Models
     {
         protected Product() { }
 
-        public Product(string name, double price, string description, Image image, int stock, string createdBy)
+        public Product(string name, double price, string description, int stock, string createdBy)
         {
             SetName(name);
             SetPrice(price);
             SetDescriptoin(description);
-            //SetImage(image);
             SetStock(stock);
             AuditCreate(createdBy);
             AuditModify(createdBy);

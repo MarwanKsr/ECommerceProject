@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.RabbitMQSender;
 using ShoppingCardApi.Models.ViewModel;
 using ShoppingCardApi.Services.Products;
@@ -9,6 +11,7 @@ namespace ShoppingCardApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Consumer")]
     public class CheckOutController : ControllerBase
     {
         private readonly ICardQueryService _cardQueryService;
@@ -38,7 +41,7 @@ namespace ShoppingCardApi.Controllers
         {
             try
             {
-                //var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var accessToken = await HttpContext.GetTokenAsync("access_token");
                 CardDto cardDto = await _cardQueryService.GetCardByUserId(checkoutModel.UserId);
                 if (cardDto == null)
                 {
@@ -48,7 +51,7 @@ namespace ShoppingCardApi.Controllers
                 var cardDetails = cardDto.CardDetails;
                 foreach (var item in cardDetails)
                 {
-                    var response = await _productService.GetProductPriceById<ResponseDto>(item.Product.ProductId ,default);
+                    var response = await _productService.GetProductPriceById<ResponseDto>(item.Product.ProductId ,accessToken);
                     if (response == null || !response.IsSuccess)
                     {
                         throw new ArgumentException("Error occurs while call product's price action");
@@ -65,7 +68,8 @@ namespace ShoppingCardApi.Controllers
                 {
                     CheckoutModel = checkoutModel,
                     CardDetails = cardDetails,
-                    MessageCreated = DateTime.Now
+                    MessageCreated = DateTime.UtcNow,
+                    AccessToekn = accessToken
                 };
 
                 _rabbitMQSender.SendMessage(rabbitMqCheckoutModel, "checkoutqueue");

@@ -10,5 +10,6 @@ namespace SharedLibrary.Base.Message
     {
         public long Id { get; set; }
         public DateTime MessageCreated { get; set; }
+        public string AccessToekn { get; set; }
     }
 }

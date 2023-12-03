@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingCardApi.Models.ViewModel;
 using ShoppingCartApi.Models.Dto;
@@ -8,6 +9,7 @@ namespace ShoppingCardApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Consumer")]
     public class CardsController : ControllerBase
     {
         private readonly ICardCommandService _cardCommandService;

@@ -182,3 +182,5 @@ C:\Users\mervan.kasir\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\
 C:\Users\mervan.kasir\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\RabbitMQ.Client.dll
 C:\Users\mervan.kasir\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\SharedLibrary.dll
 C:\Users\mervan.kasir\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\SharedLibrary.pdb
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Casper TR\source\repos\ECommerceProject\ProductApi\obj\Debug\net7.0\ProductApi.sourcelink.json

@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductApi.Dto;
 using ProductApi.Models;
 using ProductApi.Services.Products;
 using SharedLibrary.Dtos;
+using System.Security.Claims;
 
 namespace ProductApi.Controllers
 {
@@ -65,13 +67,15 @@ namespace ProductApi.Controllers
 
         [HttpPost]
         [Route("Create")]
+        [Authorize(Roles = "Admin")]
         public async Task<object> Create(ProductCreateModel productCreateModel/*, IFormFile image*/)
         {
             try
             {
+                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 var productDto = _mapper.Map<ProductDto>(productCreateModel);
-                productDto.CreatedBy = "User";
-                ProductDto model = await _productCommandRepository.CreateProduct(productDto, default);
+                productDto.CreatedBy = userId;
+                ProductDto model = await _productCommandRepository.CreateProduct(productDto);
                 _response.Result = model;
             }
             catch (Exception ex)
@@ -86,14 +90,36 @@ namespace ProductApi.Controllers
 
         [HttpPut]
         [Route("Update")]
-        public async Task<object> Update([FromBody] ProductUpdateModel productUpdateModel/*, IFormFile image*/)
+        [Authorize(Roles = "Admin")]
+        public async Task<object> Update([FromBody] ProductUpdateModel productUpdateModel)
         {
             try
             { 
+                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 var productDto = _mapper.Map<ProductDto>(productUpdateModel);
-                productDto.ModifiedBy = "User";
-                ProductDto model = await _productCommandRepository.UpdateProduct(productDto, default);
+                productDto.ModifiedBy = userId;
+                ProductDto model = await _productCommandRepository.UpdateProduct(productDto);
                 _response.Result = model;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
+
+        [HttpPost]
+        [Route("UpdateImage/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<object> UpdateImage(int id, IFormFile image)
+        {
+            try
+            {
+                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                string imageUrl = await _productCommandRepository.UpdateProductImage(id, image, userId);
+                _response.Result = imageUrl;
             }
             catch (Exception ex)
             {
@@ -106,6 +132,7 @@ namespace ProductApi.Controllers
 
         [HttpDelete]
         [Route("Delete/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<object> Delete(int id)
         {
             try
@@ -124,6 +151,7 @@ namespace ProductApi.Controllers
 
         [HttpGet]
         [Route("{id}/DecreaseStock")]
+        [Authorize(Roles = "Consumer")]
         public async Task<object> DecreaseStock(int id,[FromQuery] int wantedCount)
         {
             try
@@ -142,6 +170,7 @@ namespace ProductApi.Controllers
 
         [HttpGet]
         [Route("{id}/GetPrice")]
+        [Authorize(Roles = "Consumer")]
         public async Task<object> GetPrice(int id)
         {
             try

@@ -73,6 +73,7 @@ namespace Identity.Services
             foreach (var role in roles)
             {
                 authClaims.Add(new Claim("Role", role));
+                authClaims.Add(new Claim(ClaimTypes.Role, role));
             }
 
             var tokenDescriptor = new SecurityTokenDescriptor

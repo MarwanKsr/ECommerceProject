@@ -1,5 +1,6 @@
 ﻿using ProductApi.DbContexts;
 using ProductApi.Dto;
+using ProductApi.Extensions;
 using ProductApi.Models;
 using ProductApi.Services.Images;
 using SharedLibrary.Repository;
@@ -17,10 +18,9 @@ namespace ProductApi.Services.Products
             _imageService = imageService;
         }
 
-        public async Task<ProductDto> CreateProduct(ProductDto productDto, IFormFile image)
+        public async Task<ProductDto> CreateProduct(ProductDto productDto)
         {
-            var imageEntity = await _imageService.CreateImageByFormFile(image);
-            var product = new Product(productDto.Name, productDto.Price, productDto.Description, imageEntity, productDto.Stock, productDto.CreatedBy);
+            var product = new Product(productDto.Name, productDto.Price, productDto.Description, productDto.Stock, productDto.CreatedBy);
             await _productRepository.AddAndSaveAsync(product);
             return ProductDto.FromEntity(product);
         }
@@ -53,7 +53,7 @@ namespace ProductApi.Services.Products
             }
         }
 
-        public async Task<ProductDto> UpdateProduct(ProductDto productDto, IFormFile image)
+        public async Task<ProductDto> UpdateProduct(ProductDto productDto)
         {
             var product = await _productRepository.FindAsync(productDto.Id);
             if (product is null)
@@ -62,20 +62,32 @@ namespace ProductApi.Services.Products
             product.SetName(productDto.Name);
             product.SetPrice(product.Price);
             product.SetDescriptoin(productDto.Description);
-            if (image != null)
-            {
-                var oldImageId = product.Image?.Id;
-                var imageEntity = await _imageService.CreateImageByFormFile(image);
-                if (oldImageId.HasValue)
-                {
-                    await _imageService.RemoveByIdAsync(oldImageId.Value);
-                }
-                product.SetImage(imageEntity);
-            }
             product.AuditModify(productDto.ModifiedBy);
 
             await _productRepository.ModifyAndSaveAsync(product);
             return ProductDto.FromEntity(product);
+        }
+
+        public async Task<string> UpdateProductImage(long productId, IFormFile image, string modifiedBy)
+        {
+            if (image is null)
+                throw new Exception("Image Not Found");
+
+            var product = await _productRepository.FindAsync(productId);
+            if (product is null)
+                throw new Exception("Product Not Found");
+
+            var oldImageId = product.Image?.Id;
+            var imageEntity = await _imageService.CreateImageByFormFile(image, modifiedBy);
+            if (oldImageId != null)
+            {
+                await _imageService.RemoveByIdAsync(oldImageId.Value);
+            }
+            product.SetImage(imageEntity);
+            product.AuditModify(modifiedBy);
+
+            await _productRepository.ModifyAndSaveAsync(product);
+            return product.Image.GetAbsoluteUrl();
         }
     }
 }

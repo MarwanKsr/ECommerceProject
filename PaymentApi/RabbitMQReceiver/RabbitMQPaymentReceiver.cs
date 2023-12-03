@@ -70,10 +70,14 @@ namespace PaymentApi.RabbitMQReceiver
 
             try
             {
-                iyzicoPaymentService.Pay(paymentModel);
+                var paymentResponse = iyzicoPaymentService.Pay(paymentModel);
+                if (!string.IsNullOrEmpty(paymentResponse.ErrorCode))
+                {
+                    throw new ArgumentException(paymentResponse.ErrorMessage);
+                }
                 foreach (var item in paymentModel.OrderDetails)
                 {
-                    var stockResponse = await productService.DecreaseProductStockById<ResponseDto>(item.Product.ProductId, item.Count, default);
+                    var stockResponse = await productService.DecreaseProductStockById<ResponseDto>(item.Product.ProductId, item.Count, paymentModel.AccessToekn);
                     if (stockResponse == null || !stockResponse.IsSuccess)
                     {
                         if (stockResponse.ErrorMessages.Any())
@@ -87,7 +91,7 @@ namespace PaymentApi.RabbitMQReceiver
                 throw ex;
             }
 
-            var response = await orderService.MakeOrderSuccess<ResponseDto>(paymentModel.OrderHeader.Id, default);
+            var response = await orderService.MakeOrderSuccess<ResponseDto>(paymentModel.OrderHeader.Id, paymentModel.AccessToekn);
             if (response == null || !response.IsSuccess)
             {
                 if (response.ErrorMessages.Any())
@@ -95,10 +99,10 @@ namespace PaymentApi.RabbitMQReceiver
                 throw new ArgumentException("Error occurs while make order status success");
             }
 
-            var res = await shoppingCardService.ClearCard<ResponseDto>(paymentModel.OrderHeader.UserId, default);
+            var res = await shoppingCardService.ClearCard<ResponseDto>(paymentModel.OrderHeader.UserId, paymentModel.AccessToekn);
             if (res == null || !res.IsSuccess)
             {
-                if (res.ErrorMessages.Any())
+                if ((bool)res?.ErrorMessages.Any())
                     throw new ArgumentException(string.Join(",", res.ErrorMessages));
                 throw new ArgumentException("Error occurs while make order status success");
             }
@@ -109,6 +113,8 @@ namespace PaymentApi.RabbitMQReceiver
                 FullName = paymentModel.OrderHeader.FullName,
                 Email = paymentModel.OrderHeader.Email,
                 OrderHeaderId = paymentModel.OrderHeader.Id.ToString(),
+                AccessToekn = paymentModel.AccessToekn,
+                MessageCreated = DateTime.UtcNow
             };
 
             _rabbitMQSender.SendMessage(mailRequestModel, "mailQueue");
