@@ -53,5 +53,36 @@ namespace Identity.Controllers
             _response.Result = loginResponse;
             return Ok(_response);
         }
+
+        [HttpPost("Register")]
+        [AllowAnonymous]
+        public async Task<ActionResult> Register(RegistrationModel registrationModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string>(ModelState.Values
+                        .SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage));
+            }
+
+            try
+            {
+                var user = new ApplicationUser(registrationModel.FirstName, registrationModel.LastName, registrationModel.Email);
+                var identityResult = await _authService.RegisterConsumer(user, registrationModel.Password, Roles.CONSUMER);
+                if (!identityResult.Succeeded)
+                {
+                    _response.IsSuccess = false;
+                    _response.ErrorMessages = new List<string>() { string.Join(",", identityResult.Errors.Select(e => e.Description)) };
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string>() { ex.Message };
+            }
+            _response.IsSuccess = true;
+            return Ok(_response);
+        }
     }
 }

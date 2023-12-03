@@ -9,19 +9,10 @@
         {
             Instance = instance;
         }
-        /// <summary>
-        /// random string to generate JWT tokens
-        /// </summary>
         public string SecretToken { get; set; }
 
-        /// <summary>
-        /// Represent the timeout period for the session
-        /// </summary>
         public double SessionTimeout { get; set; }
 
-        /// <summary>
-        /// Represent the base url of the site
-        /// </summary>
         public string SiteUrl { get; set; }
 
         public string MediaUrl { get; set; }

@@ -9,8 +9,8 @@ namespace Identity.Models
         public ApplicationUser() { }
         public ApplicationUser(string firstName, string lastName, string email)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            SetFirstName(firstName);
+            SetLastName(lastName);
             Email = email;
         }
 

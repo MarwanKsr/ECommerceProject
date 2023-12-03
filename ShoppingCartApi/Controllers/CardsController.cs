@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShoppingCardApi.Models.ViewModel;
 using ShoppingCartApi.Models.Dto;
 using ShoppingCartApi.Services.Cards;
+using System.Security.Claims;
 
 namespace ShoppingCardApi.Controllers
 {
@@ -28,11 +29,12 @@ namespace ShoppingCardApi.Controllers
             _response = new ResponseDto();
         }
 
-        [HttpGet("GetCart/{userId}")]
-        public async Task<object> GetCart(string userId)
+        [HttpGet("GetCard")]
+        public async Task<object> GetCard()
         {
             try
             {
+                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 CardDto cartDto = await _cardQueryService.GetCardByUserId(userId);
                 _response.Result = cartDto;
             }
@@ -80,11 +82,12 @@ namespace ShoppingCardApi.Controllers
             return _response;
         }
 
-        [HttpPost("ClearCard/{userId}")]
-        public async Task<object> ClearCard(string userId)
+        [HttpPost("ClearCard")]
+        public async Task<object> ClearCard()
         {
             try
             {
+                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 bool isSuccess = await _cardCommandService.ClearCard(userId);
                 _response.Result = isSuccess;
             }

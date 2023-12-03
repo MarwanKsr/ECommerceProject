@@ -1,5 +1,7 @@
 ﻿using Identity.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Identity.Services
 {
@@ -52,6 +54,30 @@ namespace Identity.Services
             };
 
             return (true, model, false, null);
+        }
+
+        public async Task<IdentityResult> RegisterConsumer(ApplicationUser user, string password, string role)
+        {
+            if (await IsEmailExists(user.Email))
+                throw new ArgumentException("Email Already Exists");
+
+            user.UserName = user.Email;
+
+            var result = await _userManager.CreateAsync(user, password);
+
+            if (!result.Succeeded)
+                return result;
+
+            result = await _userManager.AddToRoleAsync(user, role);
+
+            return result;
+        }
+
+        private async Task<bool> IsEmailExists(string email)
+        {
+            var query = _userManager.Users.Where(x => x.Email != null && x.Email.ToLower().Trim() == email.ToLower().Trim());
+
+            return await query.AnyAsync();
         }
     }
 }

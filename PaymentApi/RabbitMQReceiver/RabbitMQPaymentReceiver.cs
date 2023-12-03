@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using PaymentApi.Models;
 using PaymentApi.Services.Orders;
 using PaymentApi.Services.Payments;
-using PaymentApi.Services.Payments.Providers.Iyzico;
 using PaymentApi.Services.Products;
 using PaymentApi.Services.ShoppingCard;
 using RabbitMQ.Client;
